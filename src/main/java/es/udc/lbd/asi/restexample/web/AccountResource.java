@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
 import es.udc.lbd.asi.restexample.model.service.UserService;
 import es.udc.lbd.asi.restexample.model.service.dto.LoginDTO;
+import es.udc.lbd.asi.restexample.model.service.dto.PilotDTO;
 import es.udc.lbd.asi.restexample.model.service.dto.UserDTOPrivate;
 import es.udc.lbd.asi.restexample.security.JWTConfigurer;
 import es.udc.lbd.asi.restexample.security.JWTToken;
@@ -71,7 +72,9 @@ public class AccountResource {
     }
 
     @PostMapping("/register")
-    public void registerAccount(@Valid @RequestBody UserDTOPrivate account) throws UserLoginExistsException {
-        userService.registerUser(account.getLogin(), account.getPassword());
+    public void registerAccount(@Valid @RequestBody PilotDTO account) throws UserLoginExistsException {
+        userService.registerPilot(account.getLogin(), account.getPassword(), account.getName(), account.getSurname1(),
+        		account.getSurname2(), account.getEmail(), account.getCountry(), account.getCity(), account.getBirthDate());
     }
+    
 }
