@@ -34,7 +34,13 @@ public class AircraftResource {
 		return aircraftService.findAll();
 	}
 	
-	@PostMapping("/{id}")
+	@GetMapping("/{id}")
+	public AircraftDTO findById(@PathVariable Long id) {
+		return aircraftService.findById(id);
+	}
+	
+	
+	@PostMapping
 	public AircraftDTO save(@RequestBody @Valid Aircraft aircraft, Errors errors) throws RequestBodyNotValidException {
 		errorHandler(errors);
 		return aircraftService.save(aircraft);
