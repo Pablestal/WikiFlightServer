@@ -38,13 +38,13 @@ public class UserService {
     }
 
     @Transactional(readOnly = false)
-    public void registerAdmin(String login, String password) throws UserLoginExistsException {
+    public void registerAdmin(String login, String password, String email) throws UserLoginExistsException {
     	if (userDAO.findByLogin(login) != null) {
             throw new UserLoginExistsException("User login " + login + " already exists");
         }
     	
     	String encryptedPassword = passwordEncoder.encode(password);
-    	User admin = new User(login, encryptedPassword, UserAuthority.ADMIN);
+    	User admin = new User(login, encryptedPassword, UserAuthority.ADMIN, email);
     	
     	userDAO.save(admin);
     }

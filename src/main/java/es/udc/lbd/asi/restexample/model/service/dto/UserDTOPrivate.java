@@ -7,6 +7,7 @@ public class UserDTOPrivate {
     private String login;
     private String password;
     private String authority;
+    private String email;
 
     public UserDTOPrivate() {
     }
@@ -16,6 +17,7 @@ public class UserDTOPrivate {
         this.login = user.getLogin();
         // la contraseña no se rellena, nunca se envía al cliente
         this.authority = user.getAuthority().name();
+        
     }
 
     public Long getId() {
@@ -49,4 +51,12 @@ public class UserDTOPrivate {
     public void setAuthority(String authority) {
         this.authority = authority;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

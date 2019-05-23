@@ -22,9 +22,6 @@ public class Pilot extends User {
     @Column
     private String surname2;
     
-    @Column(nullable = false)
-    private String email;
-    
     @Column(nullable = false) 
     private String country;
     
@@ -42,24 +39,22 @@ public class Pilot extends User {
     }
 
 	public Pilot(String login, String password, UserAuthority authority, String name, String surname1, String surname2, 
-			String email, String country, String city, LocalDate birthDate, LocalDate regisDate) {
-		super(login, password, authority);
+			 String email, String country, String city, LocalDate birthDate, LocalDate regisDate) {
+		super(login, password, authority, email);
 		this.name = name;
 		this.surname1 = surname1;
 		this.surname2 = surname2;
-		this.email = email;
 		this.country = country;
 		this.city = city;
 		this.birthDate = birthDate;
 		this.regisDate = regisDate;
 	}
 	
-	public Pilot(String name, String surname1, String surname2, String email, String country, String city,
+	public Pilot(String name, String surname1, String surname2, String country, String city,
 			LocalDate birthDate, LocalDate regisDate) {
 		this.name = name;
 		this.surname1 = surname1;
 		this.surname2 = surname2;
-		this.email = email;
 		this.country = country;
 		this.city = city;
 		this.birthDate = birthDate;
@@ -90,13 +85,7 @@ public class Pilot extends User {
 		this.surname2 = surname2;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 
 	public String getCountry() {
 		return country;

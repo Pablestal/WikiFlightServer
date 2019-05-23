@@ -48,9 +48,9 @@ public class DatabaseLoader {
     	LocalDate date = LocalDate.of(1946, 9, 11);
     	
     	// USERS
-    	userService.registerAdmin("pablo", "pablo");
-    	userService.registerAdmin("pepe", "pepe");
-        userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonio@gmail.com", 
+    	userService.registerAdmin("pablo", "pablo", "pablestal@gmail.com");
+    	userService.registerAdmin("pepe", "pepe", "pepiñopepe@gmail.com");
+        userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antoñitotoni@gmail.com",
         		"España", "Verin", date);
         
         //AIRCRAFTS

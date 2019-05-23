@@ -53,6 +53,7 @@ public class AircraftResource {
 		if (id != aircraft.getId()) {
 			throw new RequestBodyNotValidException(null);
 		}
+		
 		return aircraftService.update(aircraft);
 	}
 	

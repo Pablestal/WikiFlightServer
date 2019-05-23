@@ -27,15 +27,19 @@ public class User {
     
     @Enumerated(EnumType.STRING)
     private UserAuthority authority;
+    
+    @Column(nullable = false)
+    private String email;
 
-    public User() {
+	public User() {
     }
     
-    public User(String login, String password, UserAuthority authority) {
+    public User(String login, String password, UserAuthority authority, String email) {
 		super();
 		this.login = login;
 		this.password = password;
 		this.authority = authority;
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -62,7 +66,14 @@ public class User {
         this.password = password;
     }
      
+    public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	public UserAuthority getAuthority() {
         return authority;
     }
