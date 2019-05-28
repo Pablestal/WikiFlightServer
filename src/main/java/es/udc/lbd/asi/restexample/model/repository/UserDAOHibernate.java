@@ -30,4 +30,10 @@ public class UserDAOHibernate extends GenericDAOHibernate implements UserDAO {
     public User findById(Long id) {
         return (User) getSession().createQuery("from User where id = :id").setParameter("id", id).uniqueResult();
     }
+
+	@Override
+	public User findByEmail(String email) {
+		return (User) getSession().createQuery("from User where email = :email").setParameter("email", email)
+                .uniqueResult();
+	}
 }

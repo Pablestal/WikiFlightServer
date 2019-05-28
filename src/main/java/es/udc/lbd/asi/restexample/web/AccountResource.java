@@ -1,5 +1,8 @@
 package es.udc.lbd.asi.restexample.web;
 
+import java.util.Map;
+import java.util.UUID;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -22,10 +25,12 @@ import es.udc.lbd.asi.restexample.model.service.UserService;
 import es.udc.lbd.asi.restexample.model.service.dto.LoginDTO;
 import es.udc.lbd.asi.restexample.model.service.dto.PilotDTO;
 import es.udc.lbd.asi.restexample.model.service.dto.UserDTOPrivate;
+import es.udc.lbd.asi.restexample.model.service.dto.UserDTOPublic;
 import es.udc.lbd.asi.restexample.security.JWTConfigurer;
 import es.udc.lbd.asi.restexample.security.JWTToken;
 import es.udc.lbd.asi.restexample.security.TokenProvider;
 import es.udc.lbd.asi.restexample.web.exception.CredentialsAreNotValidException;
+import es.udc.lbd.asi.restexample.web.exception.UserNotFoundException;
 
 /**
  * Este controlador va por separado que el UserResource porque se encarga de
@@ -76,5 +81,19 @@ public class AccountResource {
         userService.registerPilot(account.getLogin(), account.getPassword(), account.getName(), account.getSurname1(),
         		account.getSurname2(), account.getEmail(), account.getCountry(), account.getCity(), account.getBirthDate());
     }
+    
+    @PostMapping("/forgotpassword")
+    public void resetPassword( @Valid @RequestBody Map<String, Object> email ) throws UserNotFoundException {
+    			String usermail = (String) email.get("email");
+
+    		    UserDTOPublic user = userService.findByEmail(usermail);
+    		    if (user == null) {
+    		        throw new UserNotFoundException("User not found");
+    		    }
+    		    String token = UUID.randomUUID().toString();
+    		    userService.createPasswordResetTokenForUser(user, token);
+    		    
+    		    
+    		}
     
 }

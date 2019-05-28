@@ -49,8 +49,8 @@ public class DatabaseLoader {
     	
     	// USERS
     	userService.registerAdmin("pablo", "pablo", "pablestal@gmail.com");
-    	userService.registerAdmin("pepe", "pepe", "pepiñopepe@gmail.com");
-        userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antoñitotoni@gmail.com",
+    	userService.registerAdmin("pepe", "pepe", "pepitopepe@gmail.com");
+        userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonitotoni@gmail.com",
         		"España", "Verin", date);
         
         //AIRCRAFTS
