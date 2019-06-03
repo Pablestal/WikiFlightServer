@@ -6,4 +6,5 @@ public interface PasswordTokenDAO {
 	
 	void save(PasswordResetToken token);
 	
+	PasswordResetToken findByToken(String token);
 }

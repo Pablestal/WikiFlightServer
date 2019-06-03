@@ -15,11 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.udc.lbd.asi.restexample.PasswordResetToken;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
 import es.udc.lbd.asi.restexample.model.service.UserService;
 import es.udc.lbd.asi.restexample.model.service.dto.LoginDTO;
@@ -30,6 +33,7 @@ import es.udc.lbd.asi.restexample.security.JWTConfigurer;
 import es.udc.lbd.asi.restexample.security.JWTToken;
 import es.udc.lbd.asi.restexample.security.TokenProvider;
 import es.udc.lbd.asi.restexample.web.exception.CredentialsAreNotValidException;
+import es.udc.lbd.asi.restexample.web.exception.RequestBodyNotValidException;
 import es.udc.lbd.asi.restexample.web.exception.UserNotFoundException;
 
 /**
@@ -83,7 +87,7 @@ public class AccountResource {
     }
     
     @PostMapping("/forgotpassword")
-    public void resetPassword( @Valid @RequestBody Map<String, Object> email ) throws UserNotFoundException {
+    public void forgotPassword(@Valid @RequestBody Map<String, Object> email ) throws UserNotFoundException {
     			String usermail = (String) email.get("email");
 
     		    UserDTOPublic user = userService.findByEmail(usermail);
@@ -95,5 +99,16 @@ public class AccountResource {
     		    
     		    
     		}
+    
+    @PutMapping("/resetpassword/{token}")
+    public void resetPassword(@PathVariable String token, @Valid @RequestBody Map<String, Object> password) 
+    		throws RequestBodyNotValidException {
+    	if (userService.findByToken(token) == null) {
+    		throw new RequestBodyNotValidException("Token no existe");
+    	}
+    	String pass = (String) password.get("password");
+    	PasswordResetToken bdtoken = userService.findByToken(token);
+    	userService.resetUserPassword(bdtoken, pass);
+    }
     
 }

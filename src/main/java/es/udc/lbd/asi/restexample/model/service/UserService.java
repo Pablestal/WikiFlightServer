@@ -96,11 +96,25 @@ public class UserService {
     }
     
     @Transactional(readOnly = false)
+    public UserDTOPrivate resetUserPassword(PasswordResetToken token, String password) {
+    	User bduser = token.getUser();
+    	String encryptedPassword = passwordEncoder.encode(password);
+    	System.out.println("Password: " + password);
+    	bduser.setPassword(encryptedPassword);
+    	userDAO.save(bduser);
+    	return new UserDTOPrivate (bduser);
+    }
+    
+    @Transactional(readOnly = false)
     public void createPasswordResetTokenForUser(UserDTOPublic user, String token) {
     	User bduser = userDAO.findById(user.getId());
         PasswordResetToken myToken = new PasswordResetToken(token, bduser, LocalDateTime.now().plusMinutes(15));
         passwordTokenDAO.save(myToken);
         this.sendResetPasswordEmail(myToken);
+    }
+    
+    public PasswordResetToken findByToken (String token) {
+    	return passwordTokenDAO.findByToken(token);
     }
     
     public void sendResetPasswordEmail(PasswordResetToken token) {

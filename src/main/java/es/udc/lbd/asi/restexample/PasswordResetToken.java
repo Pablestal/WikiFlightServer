@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import es.udc.lbd.asi.restexample.model.domain.User;
 
 @Entity
+@Table(name="PasswordResetToken")
 public class PasswordResetToken {
   
     private static final int EXPIRATION = 60 * 24;
@@ -28,6 +30,14 @@ public class PasswordResetToken {
     private User user;
   
     private LocalDateTime expiryDate;
+    
+    
+
+	public PasswordResetToken() {
+		
+	}
+
+
 
 	public PasswordResetToken(Long id, String token, User user, LocalDateTime expiryDate) {
 		super();
