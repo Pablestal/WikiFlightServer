@@ -22,7 +22,7 @@ public class PilotDAOHibernate extends GenericDAOHibernate implements PilotDAO{
 
 
     @Override
-    public Pilot findById(Long id) {
-        return (Pilot) getSession().createQuery("from Pilot where id = :id").setParameter("id", id).uniqueResult();
+    public Pilot findByLogin(String login) {
+        return (Pilot) getSession().createQuery("from Pilot where login = :login").setParameter("login", login).uniqueResult();
     }
 }

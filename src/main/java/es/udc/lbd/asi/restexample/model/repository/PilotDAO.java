@@ -10,6 +10,6 @@ public interface PilotDAO {
 
     void save(Pilot pilot);
 
-    Pilot findById(Long id);
+    Pilot findByLogin(String login);
 
 }

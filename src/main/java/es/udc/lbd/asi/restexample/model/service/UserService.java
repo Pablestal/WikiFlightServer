@@ -76,11 +76,27 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(password);
         
         Pilot  pilot = new Pilot(login, encryptedPassword, UserAuthority.PILOT , name, surname1, surname2, 
-        		email, country, city, birthDate, LocalDate.now());
+        		email, country, city, birthDate, LocalDate.now(), null);
      
 
         pilotDAO.save(pilot);
         return new PilotDTO(pilot);
+    }
+    
+    @Transactional(readOnly = false)
+    public PilotDTO updatePilot(Pilot pilot) {
+    	Pilot bdPilot = pilotDAO.findByLogin(pilot.getLogin());
+    	bdPilot.setName(pilot.getName());
+    	bdPilot.setSurname1(pilot.getSurname1());
+    	bdPilot.setSurname2(pilot.getSurname2());
+    	bdPilot.setEmail(pilot.getEmail());
+    	bdPilot.setCountry(pilot.getCountry());
+    	bdPilot.setCity(pilot.getCity());
+    	bdPilot.setBirthDate(pilot.getBirthDate());
+    	bdPilot.setImage(pilot.getImage());
+    	
+    	pilotDAO.save(bdPilot);
+    	return new PilotDTO(bdPilot);
     }
 
     public UserDTOPrivate getCurrentUserWithAuthority() {
@@ -89,6 +105,10 @@ public class UserService {
             return new UserDTOPrivate(userDAO.findByLogin(currentUserLogin));
         }
         return null;
+    }
+    
+    public PilotDTO findByLogin(String login) {
+    	return new PilotDTO(pilotDAO.findByLogin(login));
     }
     
     public UserDTOPublic findByEmail(String email) {

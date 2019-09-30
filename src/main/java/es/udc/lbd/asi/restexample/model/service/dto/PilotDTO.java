@@ -17,6 +17,8 @@ public class PilotDTO {
     private String country;  
     private String city;
     private LocalDate birthDate;
+    private LocalDate regisDate;
+    private byte[] image;
     
     public PilotDTO() {
     }
@@ -32,6 +34,8 @@ public class PilotDTO {
 		this.country = pilot.getCountry();
 		this.city = pilot.getCity();
 		this.birthDate = pilot.getBirthDate();
+		this.regisDate = pilot.getRegisDate();
+		this.image = pilot.getImage();
 	}
 
 	public Long getId() {
@@ -120,6 +124,22 @@ public class PilotDTO {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	public LocalDate getRegisDate() {
+		return regisDate;
+	}
+
+	public void setRegisDate(LocalDate regisDate) {
+		this.regisDate = regisDate;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
     
   
