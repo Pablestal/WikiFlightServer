@@ -1,6 +1,5 @@
 package es.udc.lbd.asi.restexample.model.service;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import es.udc.lbd.asi.restexample.PasswordResetToken;
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
@@ -158,7 +156,7 @@ public class UserService {
 			message.setFrom(new InternetAddress("wikiflight.help@gmail.com"));
 
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(token.getUser().getEmail()));
-			message.setSubject("Link to reset your password");
+			message.setSubject("[Wikiflight] Reset your password");
 			String contenido = "<div style = \"margin: 0% 1.5%\">\r\n" + 
 					"	<div style=\"font-size:120%;text-align:center;\">\r\n" + 
 					"    	<h1> Click this link to reset your password</h1>\r\n" + 

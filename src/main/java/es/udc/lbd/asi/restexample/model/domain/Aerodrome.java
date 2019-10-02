@@ -7,7 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.vividsolutions.jts.geom.Point;
+import org.springframework.data.geo.Point;
+
 
 
 @Entity
@@ -34,7 +35,7 @@ public class Aerodrome {
 	private String city;
 	
 	@Column
-	private Float elevation;
+	private Double elevation;
 	
 	@Column(nullable=false)
 	private Point position;
@@ -42,10 +43,9 @@ public class Aerodrome {
 	public Aerodrome() {
 	}
 
-	public Aerodrome(Long id, String codIATA, String codOACI, String name, String country, String city, Float elevation,
+	public Aerodrome(String codIATA, String codOACI, String name, String country, String city, Double elevation,
 			Point position) {
 		super();
-		this.id = id;
 		this.codIATA = codIATA;
 		this.codOACI = codOACI;
 		this.name = name;
@@ -103,12 +103,26 @@ public class Aerodrome {
 		this.city = city;
 	}
 
-	public Float getElevation() {
+	public Double getElevation() {
 		return elevation;
 	}
 
-	public void setElevation(Float elevation) {
+	public void setElevation(Double elevation) {
 		this.elevation = elevation;
+	}
+
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+
+	@Override
+	public String toString() {
+		return "Aerodrome [id=" + id + ", codIATA=" + codIATA + ", codOACI=" + codOACI + ", name=" + name + ", country="
+				+ country + ", city=" + city + ", elevation=" + elevation + ", position=" + position + "]";
 	}
 	
 	

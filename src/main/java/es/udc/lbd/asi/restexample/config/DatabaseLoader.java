@@ -1,6 +1,5 @@
 package es.udc.lbd.asi.restexample.config;
 
-import java.io.File;
 import java.time.LocalDate;
 
 import javax.annotation.PostConstruct;
@@ -9,10 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.geo.Point;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 import es.udc.lbd.asi.restexample.model.domain.Aircraft;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
+import es.udc.lbd.asi.restexample.model.service.AerodromeService;
 import es.udc.lbd.asi.restexample.model.service.AircraftService;
 import es.udc.lbd.asi.restexample.model.service.UserService;
 
@@ -28,6 +30,9 @@ public class DatabaseLoader {
 
     @Autowired
     private AircraftService aircraftService;
+    
+    @Autowired
+    private AerodromeService aerodromeService;
     /*
      * Para hacer que la carga de datos sea transaccional, hay que cargar el propio
      * objeto como un bean y lanzar el método una vez cargado, ya que en el
@@ -58,5 +63,9 @@ public class DatabaseLoader {
         aircraftService.save(aircraft1);
         Aircraft aircraft2 = new Aircraft("Boeing", "747-8");
         aircraftService.save(aircraft2);
+        //AERODROMES
+        Point p = new Point(48.0, 8.0);
+        Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p);
+        aerodromeService.save(aerodrome1);
     }
 }
