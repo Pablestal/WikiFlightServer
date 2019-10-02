@@ -1,5 +1,6 @@
 package es.udc.lbd.asi.restexample.config;
 
+import java.io.File;
 import java.time.LocalDate;
 
 import javax.annotation.PostConstruct;
@@ -52,7 +53,6 @@ public class DatabaseLoader {
     	userService.registerAdmin("pepe", "pepe", "pepitopepe@gmail.com");
         userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonitotoni@gmail.com",
         		"España", "Verin", date);
-        
         //AIRCRAFTS
         Aircraft aircraft1 = new Aircraft("Airbus", "A380");
         aircraftService.save(aircraft1);

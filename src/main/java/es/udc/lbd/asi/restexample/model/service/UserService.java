@@ -1,5 +1,6 @@
 package es.udc.lbd.asi.restexample.model.service;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.udc.lbd.asi.restexample.PasswordResetToken;
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
@@ -76,12 +78,12 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(password);
         
         Pilot  pilot = new Pilot(login, encryptedPassword, UserAuthority.PILOT , name, surname1, surname2, 
-        		email, country, city, birthDate, LocalDate.now(), null);
+        		email, country, city, birthDate, LocalDate.now());
      
-
         pilotDAO.save(pilot);
         return new PilotDTO(pilot);
     }
+    
     
     @Transactional(readOnly = false)
     public PilotDTO updatePilot(Pilot pilot) {
@@ -93,12 +95,11 @@ public class UserService {
     	bdPilot.setCountry(pilot.getCountry());
     	bdPilot.setCity(pilot.getCity());
     	bdPilot.setBirthDate(pilot.getBirthDate());
-    	bdPilot.setImage(pilot.getImage());
     	
     	pilotDAO.save(bdPilot);
     	return new PilotDTO(bdPilot);
     }
-
+    
     public UserDTOPrivate getCurrentUserWithAuthority() {
         String currentUserLogin = SecurityUtils.getCurrentUserLogin();
         if (currentUserLogin != null) {
