@@ -64,8 +64,11 @@ public class DatabaseLoader {
         Aircraft aircraft2 = new Aircraft("Boeing", "747-8");
         aircraftService.save(aircraft2);
         //AERODROMES
-        Point p = new Point(48.0, 8.0);
-        Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p);
+        Point p1 = new Point(43.301944,  -8.377222);
+        Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);
         aerodromeService.save(aerodrome1);
+        Point p2 = new Point(42.896333, -8.415145);
+        Aerodrome aerodrome2 = new Aerodrome("SCQ", "LEST", "Lavacolla", "España", "Santiago de Compostela", 1213.0, p2);
+        aerodromeService.save(aerodrome2);
     }
 }
