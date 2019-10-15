@@ -52,17 +52,21 @@ public class DatabaseLoader {
     public void loadData() throws UserLoginExistsException {
     	
     	LocalDate date = LocalDate.of(1946, 9, 11);
+    	LocalDate date1 = LocalDate.of(1864, 9, 29);
     	
     	// USERS
     	userService.registerAdmin("pablo", "pablo", "pablestal@gmail.com");
     	userService.registerAdmin("pepe", "pepe", "pepitopepe@gmail.com");
         userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonitotoni@gmail.com",
         		"España", "Verin", date);
+        userService.registerPilot("miguel", "miguel", "Miguel", "de Unamuno", "y Jugo", "miguelinmigue@gmail.com",
+        		"España", "Bilbao", date1);
         //AIRCRAFTS
         Aircraft aircraft1 = new Aircraft("Airbus", "A380");
         aircraftService.save(aircraft1);
         Aircraft aircraft2 = new Aircraft("Boeing", "747-8");
         aircraftService.save(aircraft2);
+        
         //AERODROMES
         Point p1 = new Point(43.301944,  -8.377222);
         Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);

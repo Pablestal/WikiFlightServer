@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,21 +41,36 @@ public class UserResource {
     	return userService.findByLogin(login);
     }
     
-    @PutMapping("/{login}")
-    public PilotDTO updatePilot(@PathVariable String login, @ModelAttribute @Valid Pilot pilot, @ModelAttribute MultipartFile image, Errors errors) 
+    @PutMapping("/updateavatar/{login}")
+    public void updatePilotAvatar(@PathVariable String login, @ModelAttribute @Valid Pilot pilot, @ModelAttribute MultipartFile image, Errors errors) 
     		throws RequestBodyNotValidException, IOException {
     	errorHandler(errors);
-  
+    	System.out.println("PILOT: " + pilot.toString());
     	if (!login.equals(pilot.getLogin())) {
 			throw new RequestBodyNotValidException("Body not valid");
 		}
-    	if (image == null) 
+    	
+    	if (image == null) {
+    		throw new RequestBodyNotValidException("Body not valid");
+    	} else {	
+    		String destination = "C:\\Users\\pable\\Documents\\FIC\\2º Cuatrimestre\\tfgclient\\public\\images\\avatars\\"+ pilot.getLogin() + "avatar.jpg";
+    		File file = new File(destination);
+    		image.transferTo(file);
+    		
+    		}
+    }
+    
+    @PutMapping("/{login}")
+    public PilotDTO updatePilot(@PathVariable String login, @RequestBody @Valid Pilot pilot, Errors errors) 
+    		throws RequestBodyNotValidException, IOException {
+    	errorHandler(errors);
+    	System.out.println("PILOT: " + pilot.toString());
+    	if (!login.equals(pilot.getLogin())) {
+			throw new RequestBodyNotValidException("Body not valid");
+		} else {	
+    		System.out.println("PILOTO A CAMBIAR: " + pilot.toString());
     		return userService.updatePilot(pilot);
-    	else {
-    		 String destination = "C:\\Users\\pable\\Documents\\FIC\\2º Cuatrimestre\\tfgclient\\public\\images\\avatars\\"+ pilot.getLogin() + "avatar.jpg";
-    		 File file = new File(destination);
-    		 image.transferTo(file);
-    		return null;
+    		
     		}
     }
     

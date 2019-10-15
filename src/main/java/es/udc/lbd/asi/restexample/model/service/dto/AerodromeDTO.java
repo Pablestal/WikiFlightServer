@@ -19,7 +19,8 @@ public class AerodromeDTO {
 		
 		@NotEmpty
 		private String country;
-			
+		
+		@NotEmpty	
 		private String city;
 		
 		private Double elevation;

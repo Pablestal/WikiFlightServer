@@ -122,7 +122,8 @@ public class Pilot extends User {
 	@Override
 	public String toString() {
 		return "Pilot [name=" + name + ", surname1=" + surname1 + ", surname2=" + surname2 + ", country=" + country
-				+ ", city=" + city + ", birthDate=" + birthDate + ", regisDate=" + regisDate + "]";
+				+ ", city=" + city + ", birthDate=" + birthDate + ", regisDate=" + regisDate + ", login=" + super.getLogin() + 
+				", email=" + super.getEmail() + ", authority=" + super.getAuthority() + "]";
 	}
 
 }
