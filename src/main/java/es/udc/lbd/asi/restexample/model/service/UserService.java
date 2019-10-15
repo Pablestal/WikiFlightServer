@@ -93,6 +93,8 @@ public class UserService {
     	bdPilot.setCountry(pilot.getCountry());
     	bdPilot.setCity(pilot.getCity());
     	bdPilot.setBirthDate(pilot.getBirthDate());
+    	String encryptedPassword = passwordEncoder.encode(pilot.getPassword());
+    	bdPilot.setPassword(encryptedPassword);
     	
     	pilotDAO.save(bdPilot);
     	return new PilotDTO(bdPilot);
@@ -118,7 +120,6 @@ public class UserService {
     public UserDTOPrivate resetUserPassword(PasswordResetToken token, String password) {
     	User bduser = token.getUser();
     	String encryptedPassword = passwordEncoder.encode(password);
-    	System.out.println("Password: " + password);
     	bduser.setPassword(encryptedPassword);
     	userDAO.save(bduser);
     	return new UserDTOPrivate (bduser);
