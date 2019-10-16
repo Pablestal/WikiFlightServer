@@ -4,12 +4,17 @@ import java.time.LocalDate;
 
 import javax.annotation.PostConstruct;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.geo.Point;
 import org.springframework.transaction.annotation.Transactional;
+
+
 
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 import es.udc.lbd.asi.restexample.model.domain.Aircraft;
@@ -68,10 +73,14 @@ public class DatabaseLoader {
         aircraftService.save(aircraft2);
         
         //AERODROMES
-        Point p1 = new Point(43.301944,  -8.377222);
+        PrecisionModel pm = new PrecisionModel();
+        GeometryFactory gf = new GeometryFactory(pm, 4326);
+        
+        Point p1 = gf.createPoint(new Coordinate(43.301944,  -8.377222));
+       
         Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);
         aerodromeService.save(aerodrome1);
-        Point p2 = new Point(42.896333, -8.415145);
+        Point p2 = gf.createPoint(new Coordinate(42.896333, -8.415145));
         Aerodrome aerodrome2 = new Aerodrome("SCQ", "LEST", "Lavacolla", "España", "Santiago de Compostela", 1213.0, p2);
         aerodromeService.save(aerodrome2);
     }

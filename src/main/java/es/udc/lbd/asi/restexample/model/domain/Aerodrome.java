@@ -7,8 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.geo.Point;
-
+import org.locationtech.jts.geom.Point;
 
 
 @Entity

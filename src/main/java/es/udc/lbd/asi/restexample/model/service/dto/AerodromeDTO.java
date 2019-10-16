@@ -2,7 +2,7 @@ package es.udc.lbd.asi.restexample.model.service.dto;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
 
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 

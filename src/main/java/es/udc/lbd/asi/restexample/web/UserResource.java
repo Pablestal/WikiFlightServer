@@ -45,7 +45,6 @@ public class UserResource {
     public void updatePilotAvatar(@PathVariable String login, @ModelAttribute @Valid Pilot pilot, @ModelAttribute MultipartFile image, Errors errors) 
     		throws RequestBodyNotValidException, IOException {
     	errorHandler(errors);
-    	System.out.println("PILOT: " + pilot.toString());
     	if (!login.equals(pilot.getLogin())) {
 			throw new RequestBodyNotValidException("Body not valid");
 		}
@@ -64,11 +63,9 @@ public class UserResource {
     public PilotDTO updatePilot(@PathVariable String login, @RequestBody @Valid Pilot pilot, Errors errors) 
     		throws RequestBodyNotValidException, IOException {
     	errorHandler(errors);
-    	System.out.println("PILOT: " + pilot.toString());
     	if (!login.equals(pilot.getLogin())) {
 			throw new RequestBodyNotValidException("Body not valid");
 		} else {	
-    		System.out.println("PILOTO A CAMBIAR: " + pilot.toString());
     		return userService.updatePilot(pilot);
     		
     		}

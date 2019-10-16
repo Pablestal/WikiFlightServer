@@ -12,7 +12,8 @@ spring:
                 temp.use_jdbc_metadata_defaults: false
                 current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
         # Because detection is disabled you have to set correct dialect by hand.
-        database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+        database-platform: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        # database-platform: org.hibernate.dialect.PostgreSQL9Dialect
         show-sql: true
         # create      => crea la base de datos desde 0 cada vez que se lanza el proyecto, borrando todo
         # create-drop => crea la base de datos desde 0 cada vez que se lanza el proyecto, borrando todo
