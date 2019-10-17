@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import javax.annotation.PostConstruct;
 
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
@@ -91,13 +92,11 @@ public class DatabaseLoader {
         
         //AERODROMES
         PrecisionModel pm = new PrecisionModel();
-        GeometryFactory gf = new GeometryFactory(pm, 4326);
-        
-        Point p1 = gf.createPoint(new Coordinate(43.301944,  -8.377222));
+        Point p1 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(-8.377222, 43.301944));
+        Point p2 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(-8.415145, 42.896333));
        
         Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);
         aerodromeDAO.save(aerodrome1);
-        Point p2 = gf.createPoint(new Coordinate(42.896333, -8.415145));
         Aerodrome aerodrome2 = new Aerodrome("SCQ", "LEST", "Lavacolla", "España", "Santiago de Compostela", 1213.0, p2);
         aerodromeDAO.save(aerodrome2);
         
