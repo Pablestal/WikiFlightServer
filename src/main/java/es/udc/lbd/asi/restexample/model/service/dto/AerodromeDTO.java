@@ -106,6 +106,13 @@ public class AerodromeDTO {
 		public void setPosition(Point position) {
 			this.position = position;
 		}
+
+		@Override
+		public String toString() {
+			return "AerodromeDTO [id=" + id + ", codIATA=" + codIATA + ", codOACI=" + codOACI + ", name=" + name
+					+ ", country=" + country + ", city=" + city + ", elevation=" + elevation + ", position=" + position
+					+ "]";
+		}
 		
 		
 }

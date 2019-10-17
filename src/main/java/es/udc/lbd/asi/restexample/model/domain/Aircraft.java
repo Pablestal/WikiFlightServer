@@ -55,6 +55,10 @@ public class Aircraft {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Aircraft [id=" + id + ", manufacturer=" + manufacturer + ", model=" + model + "]";
+	}
+	
 }

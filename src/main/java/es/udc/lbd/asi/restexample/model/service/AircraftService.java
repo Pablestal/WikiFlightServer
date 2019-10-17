@@ -1,7 +1,6 @@
 package es.udc.lbd.asi.restexample.model.service;
 
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,9 +44,9 @@ public class AircraftService {
 		return new AircraftDTO(bdAircraft);
 	}
 	
-	  @Transactional(readOnly = false)
-	    public void deleteById(Long id) {
-	        aircraftDAO.deleteById(id);
-	    }
+	@Transactional(readOnly = false)
+	public void deleteById(Long id) {
+		aircraftDAO.deleteById(id);
+	}
 
 }

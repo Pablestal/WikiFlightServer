@@ -1,9 +1,12 @@
 package es.udc.lbd.asi.restexample.model.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -33,6 +36,9 @@ public class Pilot extends User {
     
     @Column(nullable = false)
     private LocalDate regisDate;
+    
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Flight> flights;
  
     public Pilot () {
     	
@@ -117,6 +123,14 @@ public class Pilot extends User {
 
 	public void setRegisDate(LocalDate regisDate) {
 		this.regisDate = regisDate;
+	}
+
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
 	}
 
 	@Override
