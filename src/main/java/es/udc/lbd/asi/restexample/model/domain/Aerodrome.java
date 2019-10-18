@@ -1,5 +1,9 @@
 package es.udc.lbd.asi.restexample.model.domain;
 
+import es.udc.lbd.asi.restexample.CustomGeometrySerializer;
+import es.udc.lbd.asi.restexample.CustomGeometryDeserializer;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 @Entity
@@ -37,6 +45,8 @@ public class Aerodrome {
 	private Double elevation;
 	
 	@Column(nullable=false)
+	@JsonSerialize(using = CustomGeometrySerializer.class, as= Geometry.class)
+	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= Geometry.class)
 	private Point position;
 
 	public Aerodrome() {

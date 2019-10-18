@@ -7,7 +7,6 @@ import java.time.LocalTime;
 import javax.annotation.PostConstruct;
 
 import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
