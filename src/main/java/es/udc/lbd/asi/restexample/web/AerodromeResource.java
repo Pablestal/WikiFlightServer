@@ -51,7 +51,7 @@ public class AerodromeResource {
 		if (id != aerodrome.getId()) {
 			throw new RequestBodyNotValidException(null);
 		}
-		
+		System.out.println("HOLA");
 		return aerodromeService.update(aerodrome);
 	}
 	

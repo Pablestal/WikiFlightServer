@@ -28,7 +28,6 @@ public class CustomGeometrySerializer extends JsonSerializer<Geometry> {
     @Override
     public void serialize(Geometry value, JsonGenerator gen, SerializerProvider serializers) throws IOException,
             JsonProcessingException {
-
         StringWriter writer = new StringWriter();
         gjson.write(value, writer);               
         gen.writeRawValue(writer.toString());

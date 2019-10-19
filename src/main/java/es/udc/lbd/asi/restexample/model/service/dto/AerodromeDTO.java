@@ -4,6 +4,11 @@ import javax.validation.constraints.NotEmpty;
 
 import org.locationtech.jts.geom.Point;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import es.udc.lbd.asi.restexample.CustomGeometryDeserializer;
+import es.udc.lbd.asi.restexample.CustomGeometrySerializer;
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 
 public class AerodromeDTO {
@@ -26,6 +31,8 @@ public class AerodromeDTO {
 		private Double elevation;
 		
 		@NotEmpty
+		@JsonSerialize(using = CustomGeometrySerializer.class, as= Point.class)
+		@JsonDeserialize(using = CustomGeometryDeserializer.class, as= Point.class)
 		private Point position;
 		
 		public AerodromeDTO() {

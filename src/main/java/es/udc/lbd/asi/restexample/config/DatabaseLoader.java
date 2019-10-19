@@ -24,7 +24,6 @@ import es.udc.lbd.asi.restexample.model.domain.Flight;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
 import es.udc.lbd.asi.restexample.model.repository.AerodromeDAO;
 import es.udc.lbd.asi.restexample.model.repository.AircraftDAO;
-import es.udc.lbd.asi.restexample.model.repository.FlightDAO;
 import es.udc.lbd.asi.restexample.model.repository.PilotDAO;
 import es.udc.lbd.asi.restexample.model.service.FlightService;
 import es.udc.lbd.asi.restexample.model.service.UserService;
@@ -91,8 +90,8 @@ public class DatabaseLoader {
         
         //AERODROMES
         PrecisionModel pm = new PrecisionModel();
-        Point p1 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(-8.377222, 43.301944));
-        Point p2 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(-8.415145, 42.896333));
+        Point p1 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(43.301944, -8.377222));
+        Point p2 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(42.896333, -8.415145));
        
         Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);
         aerodromeDAO.save(aerodrome1);

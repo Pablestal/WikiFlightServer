@@ -44,6 +44,7 @@ public class AerodromeService {
 		bdAerodrome.setCity(aerodrome.getCity());
 		bdAerodrome.setElevation(aerodrome.getElevation());
 		bdAerodrome.setPosition(aerodrome.getPosition());
+		System.out.println("SERVICE >>>> " + aerodrome);
 
 		aerodromeDAO.save(bdAerodrome);
 		return new AerodromeDTO(bdAerodrome);
