@@ -87,6 +87,12 @@ public class DatabaseLoader {
         aircraftDAO.save(aircraft1);
         Aircraft aircraft2 = new Aircraft("Boeing", "747-8");
         aircraftDAO.save(aircraft2);
+        Aircraft aircraft3 = new Aircraft("Boeing", "777-300");
+        aircraftDAO.save(aircraft3);
+        Aircraft aircraft4 = new Aircraft("Airbus", "A320neo");
+        aircraftDAO.save(aircraft4);
+        Aircraft aircraft5 = new Aircraft("Cessna", "140");
+        aircraftDAO.save(aircraft5);
         
         //AERODROMES
         PrecisionModel pm = new PrecisionModel();

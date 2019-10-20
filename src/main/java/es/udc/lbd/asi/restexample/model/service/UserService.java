@@ -93,8 +93,11 @@ public class UserService {
     	bdPilot.setCountry(pilot.getCountry());
     	bdPilot.setCity(pilot.getCity());
     	bdPilot.setBirthDate(pilot.getBirthDate());
+    	
+    	if (pilot.getPassword() != null) {
     	String encryptedPassword = passwordEncoder.encode(pilot.getPassword());
     	bdPilot.setPassword(encryptedPassword);
+    	}
     	
     	pilotDAO.save(bdPilot);
     	return new PilotDTO(bdPilot);

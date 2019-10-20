@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
