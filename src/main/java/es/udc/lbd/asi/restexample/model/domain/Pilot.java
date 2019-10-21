@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @PrimaryKeyJoinColumn(name="pilotId")
 @Table(name="Pilot")
@@ -37,7 +39,8 @@ public class Pilot extends User {
     @Column(nullable = false)
     private LocalDate regisDate;
     
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="picUser", fetch = FetchType.EAGER)
+	@JsonIgnore
     private List<Flight> flights;
  
     public Pilot () {
@@ -136,8 +139,10 @@ public class Pilot extends User {
 	@Override
 	public String toString() {
 		return "Pilot [name=" + name + ", surname1=" + surname1 + ", surname2=" + surname2 + ", country=" + country
-				+ ", city=" + city + ", birthDate=" + birthDate + ", regisDate=" + regisDate + ", login=" + super.getLogin() + 
+				+ ", city=" + city + ", birthDate=" + birthDate + ", regisDate=" + regisDate + ", flights=" + flights
+				+ ", login=" + super.getLogin() + 
 				", email=" + super.getEmail() + ", authority=" + super.getAuthority() + "]";
 	}
+
 
 }

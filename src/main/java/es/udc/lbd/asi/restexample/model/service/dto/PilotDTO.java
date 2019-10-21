@@ -1,7 +1,9 @@
 package es.udc.lbd.asi.restexample.model.service.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import es.udc.lbd.asi.restexample.model.domain.Flight;
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
 
 
@@ -18,6 +20,7 @@ public class PilotDTO {
     private String city;
     private LocalDate birthDate;
     private LocalDate regisDate;
+    private List<Flight> flights;
     
     public PilotDTO() {
     }
@@ -34,6 +37,7 @@ public class PilotDTO {
 		this.city = pilot.getCity();
 		this.birthDate = pilot.getBirthDate();
 		this.regisDate = pilot.getRegisDate();
+		this.flights = pilot.getFlights();
 	}
 
 	public Long getId() {
@@ -132,6 +136,12 @@ public class PilotDTO {
 		this.regisDate = regisDate;
 	}
 
-    
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
+	}
   
 }

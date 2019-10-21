@@ -34,8 +34,8 @@ public class FlightResource {
 		return flightService.findByPilot(login);
 	}
 	
-	@GetMapping("/{id}")
-	public FlightDTO findById(@PathVariable Long id) {
+	@GetMapping
+	public FlightDTO findById(@RequestParam Long id) {
 		return flightService.findById(id);
 	}
 	
@@ -57,7 +57,7 @@ public class FlightResource {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@RequestParam Long id) {
+	public void delete(@PathVariable Long id) {
 		flightService.deleteById(id);
 	}
 	

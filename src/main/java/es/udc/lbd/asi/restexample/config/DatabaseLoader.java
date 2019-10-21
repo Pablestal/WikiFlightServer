@@ -119,9 +119,20 @@ public class DatabaseLoader {
         LocalTime instr = LocalTime.of(0, 0);
         
         Flight flight1 = new Flight(dep, arr, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
-        		"Buen vuelo", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(1L), pilotDAO.findByLogin("antonio"),
+        		"Ruta por Coruña", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(1L), pilotDAO.findByLogin("miguel"),
+        		aircraftDAO.findById(1L));
+        
+        Flight flight2 = new Flight(dep, arr, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
+        		"De Coruña a Santiago", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("miguel"),
+        		aircraftDAO.findById(2L));
+        
+        Flight flight3 = new Flight(dep, arr, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
+        		"El de Antonio", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("antonio"),
         		aircraftDAO.findById(1L));
         
         flightService.save(flight1);
+        flightService.save(flight2);
+        flightService.save(flight3);
+
     }
 }

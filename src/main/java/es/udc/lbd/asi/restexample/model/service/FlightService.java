@@ -39,7 +39,7 @@ public class FlightService {
 				flight.getLandingsNight(), flight.getNightTime(), flight.getIfrTime(), flight.getPicTime(), flight.getCoopilotTime(),
 				flight.getDualTime(), flight.getInstructorTime(), flight.getObservations(), flight.getAircraftReg(), flight.getTakeoffAerodrome(),
 				flight.getLandingAerodrome(), flight.getPicUser(), flight.getAircraft());
-				
+		
 		flightDAO.save(bdFlight);
 		return new FlightDTO(bdFlight);
 	}

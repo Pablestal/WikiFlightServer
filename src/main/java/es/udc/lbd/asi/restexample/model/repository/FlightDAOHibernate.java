@@ -13,7 +13,7 @@ public class FlightDAOHibernate extends GenericDAOHibernate implements FlightDAO
 
 	@Override
 	public List<Flight> findByPilot(Pilot pilot) {
-		return getSession().createQuery("from Flight a where a.picUser = :pilot order by a.depTime").setParameter("login", pilot).list();
+		return getSession().createQuery("from Flight a where a.picUser = :pilot order by a.departureTime").setParameter("pilot", pilot).list();
 	}
 
 	@Override

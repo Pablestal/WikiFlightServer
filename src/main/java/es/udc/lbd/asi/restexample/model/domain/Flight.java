@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Flight")
 public class Flight {
@@ -32,13 +34,13 @@ public class Flight {
 	// Single pilot and multipilot times //
 	
 	@Column
-	private LocalTime seTime;
+	private LocalTime seTime; // Single engine time
 	
 	@Column
-	private LocalTime meTime;
+	private LocalTime meTime; // Multi engine time
 	
 	@Column
-	private LocalTime mpTime;
+	private LocalTime mpTime; // Multi pilot time
 	
 	// Takeoffs and landings //
 	
@@ -60,7 +62,7 @@ public class Flight {
 	private LocalTime nightTime;
 	
 	@Column
-	private LocalTime ifrTime;
+	private LocalTime ifrTime; //Instrumental Flight Rules Time
 	
 	// Pilot function time //
 	
@@ -86,21 +88,20 @@ public class Flight {
 	
 	/// Associated aerodromes, pilot and aircraft ///
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Aerodrome takeoffAerodrome;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Aerodrome landingAerodrome;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Pilot picUser;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Aircraft aircraft;
 	
 	// ROUTES MISSING (routes association)
-	
-	// PATH MISSING (multipoint??)
 		
 
 	public Flight() {
