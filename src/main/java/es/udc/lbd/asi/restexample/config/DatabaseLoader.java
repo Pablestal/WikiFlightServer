@@ -1,7 +1,6 @@
 package es.udc.lbd.asi.restexample.config;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.annotation.PostConstruct;
@@ -71,10 +70,10 @@ public class DatabaseLoader {
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void loadData() throws UserLoginExistsException {
     	
+    	// USERS
     	LocalDate date = LocalDate.of(1946, 9, 11);
     	LocalDate date1 = LocalDate.of(1864, 9, 29);
     	
-    	// USERS
     	userService.registerAdmin("pablo", "pablo", "pablestal@gmail.com");
     	userService.registerAdmin("pepe", "pepe", "pepitopepe@gmail.com");
         userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonitotoni@gmail.com",
@@ -98,15 +97,22 @@ public class DatabaseLoader {
         PrecisionModel pm = new PrecisionModel();
         Point p1 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(43.301944, -8.377222));
         Point p2 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(42.896333, -8.415145));
+        Point p3 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(41.296944, 2.078333));
+        Point p4 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(40.472222, -3.560833));
        
         Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);
         aerodromeDAO.save(aerodrome1);
         Aerodrome aerodrome2 = new Aerodrome("SCQ", "LEST", "Lavacolla", "España", "Santiago de Compostela", 1213.0, p2);
         aerodromeDAO.save(aerodrome2);
-        
+        Aerodrome aerodrome3 = new Aerodrome("BCN", "LEBL", "Barcelona-El Prat", "España", "Barcelona", 12.0, p3);
+        aerodromeDAO.save(aerodrome3);
+        Aerodrome aerodrome4 = new Aerodrome("MAD", "LEMD", "Madrid-Barajas", "España", "Madrid", 2000.0, p4);
+        aerodromeDAO.save(aerodrome4);
+
         //FLIGHTS
-        LocalDateTime dep = LocalDateTime.of(2019, 10, 17, 12, 00);
-        LocalDateTime arr = LocalDateTime.of(2019, 10, 17, 13, 30);
+        LocalDate dep_arrD = LocalDate.of(2019, 10, 22);
+        LocalTime depT = LocalTime.of(12, 00);
+        LocalTime arrT = LocalTime.of(13, 30);
         LocalTime total = LocalTime.of(1, 30);
         LocalTime set = LocalTime.of(1, 30);
         LocalTime met = LocalTime.of(0, 0);
@@ -118,15 +124,15 @@ public class DatabaseLoader {
         LocalTime dual = LocalTime.of(0, 0);
         LocalTime instr = LocalTime.of(0, 0);
         
-        Flight flight1 = new Flight(dep, arr, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
+        Flight flight1 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"Ruta por Coruña", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(1L), pilotDAO.findByLogin("miguel"),
         		aircraftDAO.findById(1L));
         
-        Flight flight2 = new Flight(dep, arr, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
+        Flight flight2 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"De Coruña a Santiago", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("miguel"),
         		aircraftDAO.findById(2L));
         
-        Flight flight3 = new Flight(dep, arr, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
+        Flight flight3 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"El de Antonio", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("antonio"),
         		aircraftDAO.findById(1L));
         

@@ -24,6 +24,11 @@ public class AerodromeDAOHibernate extends GenericDAOHibernate implements Aerodr
 	public Aerodrome findById(Long id) {
 		return (Aerodrome) getSession().createQuery("from Aerodrome a where a.id = :id").setParameter("id", id).uniqueResult();
 	}
+	
+	@Override
+	public Aerodrome findByName(String name) {
+		return (Aerodrome) getSession().createQuery("from Aerodrome where name = :name").setParameter("name", name).uniqueResult();
+	}
 
 	@Override
 	public void deleteById(Long id) {

@@ -53,6 +53,8 @@ public class FlightResource {
 			throw new RequestBodyNotValidException(null);
 		}
 		
+		System.out.println("CONTROLADOR >> " + flight.toString());
+		
 		return flightService.update(flight);
 	}
 	

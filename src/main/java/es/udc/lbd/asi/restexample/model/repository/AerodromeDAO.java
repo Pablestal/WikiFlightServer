@@ -12,6 +12,8 @@ public interface AerodromeDAO {
 	
 	Aerodrome findById(Long id);
 	
+	Aerodrome findByName(String name);
+	
 	void deleteById(Long id);
 	
 }

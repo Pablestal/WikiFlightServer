@@ -1,6 +1,6 @@
 package es.udc.lbd.asi.restexample.model.service.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
@@ -12,9 +12,13 @@ public class FlightDTO {
 
 	private Long id;
 	
-	private LocalDateTime departureTime;
+	private LocalDate departureDate;
 	
-	private LocalDateTime arrivalTime;
+	private LocalTime departureTime;
+	
+	private LocalDate arrivalDate;
+	
+	private LocalTime arrivalTime;
 	
 	private LocalTime totalTime;
 	
@@ -75,7 +79,9 @@ public class FlightDTO {
 	public FlightDTO(Flight flight) {
 		
 		this.id = flight.getId();
+		this.departureDate = flight.getDepartureDate();
 		this.departureTime = flight.getDepartureTime();
+		this.arrivalDate = flight.getArrivalDate();
 		this.arrivalTime = flight.getArrivalTime();
 		this.totalTime = flight.getTotalTime();
 		this.seTime = flight.getSeTime();
@@ -106,20 +112,36 @@ public class FlightDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public LocalDate getDepartureDate() {
+		return departureDate;
+	}
 
-	public LocalDateTime getDepartureTime() {
+	public void setDepartureDate(LocalDate departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public LocalTime getDepartureTime() {
 		return departureTime;
 	}
 
-	public void setDepartureTime(LocalDateTime departureTime) {
+	public void setDepartureTime(LocalTime departureTime) {
 		this.departureTime = departureTime;
 	}
 
-	public LocalDateTime getArrivalTime() {
+	public LocalDate getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public void setArrivalDate(LocalDate arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public LocalTime getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(LocalDateTime arrivalTime) {
+	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 

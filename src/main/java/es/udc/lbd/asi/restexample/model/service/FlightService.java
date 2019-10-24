@@ -34,11 +34,11 @@ public class FlightService {
 	
 	@Transactional(readOnly = false)
 	public FlightDTO save(Flight flight) {
-		Flight bdFlight = new Flight(flight.getDepartureTime(), flight.getArrivalTime(), flight.getTotalTime(), flight.getSeTime(),
-				flight.getMeTime(), flight.getMpTime(), flight.getTakeoffsDay(), flight.getTakeoffsNight(), flight.getLandingsDay(),
-				flight.getLandingsNight(), flight.getNightTime(), flight.getIfrTime(), flight.getPicTime(), flight.getCoopilotTime(),
-				flight.getDualTime(), flight.getInstructorTime(), flight.getObservations(), flight.getAircraftReg(), flight.getTakeoffAerodrome(),
-				flight.getLandingAerodrome(), flight.getPicUser(), flight.getAircraft());
+		Flight bdFlight = new Flight(flight.getDepartureDate(), flight.getDepartureTime(), flight.getArrivalDate(), flight.getArrivalTime(), 
+				flight.getTotalTime(), flight.getSeTime(), flight.getMeTime(), flight.getMpTime(), flight.getTakeoffsDay(), 
+				flight.getTakeoffsNight(), flight.getLandingsDay(), flight.getLandingsNight(), flight.getNightTime(), flight.getIfrTime(), 
+				flight.getPicTime(), flight.getCoopilotTime(), flight.getDualTime(), flight.getInstructorTime(), flight.getObservations(), 
+				flight.getAircraftReg(), flight.getTakeoffAerodrome(), flight.getLandingAerodrome(), flight.getPicUser(), flight.getAircraft());
 		
 		flightDAO.save(bdFlight);
 		return new FlightDTO(bdFlight);
@@ -47,7 +47,9 @@ public class FlightService {
 	@Transactional(readOnly = false)
 	public FlightDTO update (Flight flight) {
 		Flight bdFlight = flightDAO.findById(flight.getId());
+		bdFlight.setDepartureDate(flight.getDepartureDate());
 		bdFlight.setDepartureTime(flight.getDepartureTime());
+		bdFlight.setArrivalDate(flight.getArrivalDate());
 		bdFlight.setArrivalTime(flight.getArrivalTime());
 		bdFlight.setTotalTime(flight.getTotalTime());
 		bdFlight.setSeTime(flight.getSeTime());
@@ -67,9 +69,10 @@ public class FlightService {
 		bdFlight.setAircraftReg(flight.getAircraftReg());
 		bdFlight.setTakeoffAerodrome(flight.getTakeoffAerodrome());
 		bdFlight.setLandingAerodrome(flight.getLandingAerodrome());
-		bdFlight.setPicUser(flight.getPicUser());
 		bdFlight.setAircraft(flight.getAircraft());
 		
+		System.out.println("BDFLIGT SERV >> " + flight.toString());
+
 		flightDAO.save(bdFlight);
 		return new FlightDTO(bdFlight);
 	}

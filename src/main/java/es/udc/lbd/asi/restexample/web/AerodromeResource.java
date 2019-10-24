@@ -33,9 +33,9 @@ public class AerodromeResource {
 		return aerodromeService.findAll();
 	}
 	
-	@GetMapping("/{id}")
-	public AerodromeDTO findById(@PathVariable Long id) {
-		return aerodromeService.findById(id);
+	@GetMapping("/{name}")
+	public AerodromeDTO findByName(@PathVariable String name) {
+		return aerodromeService.findByName(name);
 	}
 	
 	@PostMapping

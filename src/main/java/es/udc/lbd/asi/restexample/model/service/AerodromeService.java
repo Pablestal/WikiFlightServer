@@ -22,8 +22,8 @@ public class AerodromeService {
 		return aerodromeDAO.findAll().stream().map(aerodrome -> new AerodromeDTO(aerodrome)).collect(Collectors.toList());
 	}
 	
-	public AerodromeDTO findById(Long id) {
-		return new AerodromeDTO(aerodromeDAO.findById(id));
+	public AerodromeDTO findByName(String name) {
+		return new AerodromeDTO(aerodromeDAO.findByName(name));
 	}
 	
 	@Transactional(readOnly = false)

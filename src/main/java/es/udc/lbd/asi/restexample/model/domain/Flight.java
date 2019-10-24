@@ -1,6 +1,6 @@
 package es.udc.lbd.asi.restexample.model.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.persistence.Column;
@@ -23,10 +23,16 @@ public class Flight {
     private Long id;
 	
 	@Column
-	private LocalDateTime departureTime;
+	private LocalDate departureDate;
 	
 	@Column
-	private LocalDateTime arrivalTime;
+	private LocalTime departureTime;
+	
+	@Column
+	private LocalDate arrivalDate;
+	
+	@Column
+	private LocalTime arrivalTime;
 	
 	@Column
 	private LocalTime totalTime;
@@ -94,7 +100,7 @@ public class Flight {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Aerodrome landingAerodrome;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Pilot picUser;
 	
@@ -107,14 +113,16 @@ public class Flight {
 	public Flight() {
 	}
 
-	public Flight(LocalDateTime departureTime, LocalDateTime arrivalTime, LocalTime totalTime,
-			LocalTime seTime, LocalTime meTime, LocalTime mpTime, int takeoffsDay, int takeoffsNight,
+	public Flight(LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, 
+			LocalTime totalTime, LocalTime seTime, LocalTime meTime, LocalTime mpTime, int takeoffsDay, int takeoffsNight,
 			int landingsDay, int landingsNight, LocalTime nightTime, LocalTime ifrTime, LocalTime picTime,
 			LocalTime coopilotTime, LocalTime dualTime, LocalTime instructorTime, String observations,
 			String aircraftReg, Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot picUser,
 			Aircraft aircraft) {
 		super();
+		this.departureDate = departureDate;
 		this.departureTime = departureTime;
+		this.arrivalDate = arrivalDate;
 		this.arrivalTime = arrivalTime;
 		this.totalTime = totalTime;
 		this.seTime = seTime;
@@ -145,20 +153,36 @@ public class Flight {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public LocalDate getDepartureDate() {
+		return departureDate;
+	}
 
-	public LocalDateTime getDepartureTime() {
+	public void setDepartureDate(LocalDate departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public LocalDate getArrivalDate() {
+		return arrivalDate;
+	}
+
+	public void setArrivalDate(LocalDate arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public LocalTime getDepartureTime() {
 		return departureTime;
 	}
 
-	public void setDepartureTime(LocalDateTime departureTime) {
+	public void setDepartureTime(LocalTime departureTime) {
 		this.departureTime = departureTime;
 	}
 
-	public LocalDateTime getArrivalTime() {
+	public LocalTime getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(LocalDateTime arrivalTime) {
+	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 
@@ -321,6 +345,10 @@ public class Flight {
 	public void setAircraft(Aircraft aircraft) {
 		this.aircraft = aircraft;
 	}
+	
+	
+
+	
 
 	@Override
 	public String toString() {
