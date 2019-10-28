@@ -113,7 +113,7 @@ public class DatabaseLoader {
         LocalDate dep_arrD = LocalDate.of(2019, 10, 22);
         LocalTime depT = LocalTime.of(12, 00);
         LocalTime arrT = LocalTime.of(13, 30);
-        LocalTime total = LocalTime.of(1, 30);
+        Long total = 90L;
         LocalTime set = LocalTime.of(1, 30);
         LocalTime met = LocalTime.of(0, 0);
         LocalTime mpt = LocalTime.of(0, 0);

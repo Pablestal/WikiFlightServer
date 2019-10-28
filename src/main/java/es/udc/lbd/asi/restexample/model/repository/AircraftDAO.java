@@ -12,6 +12,8 @@ public interface AircraftDAO {
 	
 	Aircraft findById(Long id);
 	
+	Aircraft findByModel(String model);
+	
 	void deleteById(Long id);
 
 }

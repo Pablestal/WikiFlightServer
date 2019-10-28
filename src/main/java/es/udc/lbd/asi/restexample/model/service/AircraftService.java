@@ -27,6 +27,10 @@ public class AircraftService {
 		return new AircraftDTO(aircraftDAO.findById(id));
 	}
 	
+	public AircraftDTO findByModel(String model) {
+		return new AircraftDTO(aircraftDAO.findByModel(model));
+	}
+	
 	@Transactional(readOnly = false)
 	public AircraftDTO save(Aircraft aircraft) {
 		Aircraft bdAircraft = new Aircraft(aircraft.getManufacturer(), aircraft.getModel());

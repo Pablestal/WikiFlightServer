@@ -33,9 +33,9 @@ public class AircraftResource {
 		return aircraftService.findAll();
 	}
 	
-	@GetMapping("/{id}")
-	public AircraftDTO findById(@PathVariable Long id) {
-		return aircraftService.findById(id);
+	@GetMapping("/{model}")
+	public AircraftDTO findByName(@PathVariable String model) {
+		return aircraftService.findByModel(model);
 	}
 	
 	

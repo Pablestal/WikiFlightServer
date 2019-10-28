@@ -24,7 +24,12 @@ public class AircraftDAOHibernate extends GenericDAOHibernate implements Aircraf
 	public Aircraft findById(Long id) {
 		return (Aircraft) getSession().createQuery("from Aircraft a where a.id = :id").setParameter("id", id).uniqueResult();
 	}
-
+	
+	@Override
+	public Aircraft findByModel(String model) {
+		return (Aircraft) getSession().createQuery("from Aircraft a where a.model = :model").setParameter("model", model).uniqueResult();
+	}
+	
 	@Override
 	public void deleteById(Long id) {
 		getSession().delete(findById(id));

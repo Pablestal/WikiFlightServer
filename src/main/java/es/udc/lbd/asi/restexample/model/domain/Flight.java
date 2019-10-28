@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="Flight")
 public class Flight {
@@ -35,7 +33,7 @@ public class Flight {
 	private LocalTime arrivalTime;
 	
 	@Column
-	private LocalTime totalTime;
+	private Long totalTime;
 	
 	// Single pilot and multipilot times //
 	
@@ -94,17 +92,16 @@ public class Flight {
 	
 	/// Associated aerodromes, pilot and aircraft ///
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome takeoffAerodrome;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome landingAerodrome;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Pilot picUser;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Aircraft aircraft;
 	
 	// ROUTES MISSING (routes association)
@@ -114,7 +111,7 @@ public class Flight {
 	}
 
 	public Flight(LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime, 
-			LocalTime totalTime, LocalTime seTime, LocalTime meTime, LocalTime mpTime, int takeoffsDay, int takeoffsNight,
+			Long totalTime, LocalTime seTime, LocalTime meTime, LocalTime mpTime, int takeoffsDay, int takeoffsNight,
 			int landingsDay, int landingsNight, LocalTime nightTime, LocalTime ifrTime, LocalTime picTime,
 			LocalTime coopilotTime, LocalTime dualTime, LocalTime instructorTime, String observations,
 			String aircraftReg, Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot picUser,
@@ -186,11 +183,11 @@ public class Flight {
 		this.arrivalTime = arrivalTime;
 	}
 
-	public LocalTime getTotalTime() {
+	public Long getTotalTime() {
 		return totalTime;
 	}
 
-	public void setTotalTime(LocalTime totalTime) {
+	public void setTotalTime(Long totalTime) {
 		this.totalTime = totalTime;
 	}
 

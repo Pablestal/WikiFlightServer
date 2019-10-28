@@ -1,7 +1,7 @@
 package es.udc.lbd.asi.restexample.model.domain;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @PrimaryKeyJoinColumn(name="pilotId")
@@ -39,9 +37,8 @@ public class Pilot extends User {
     @Column(nullable = false)
     private LocalDate regisDate;
     
-    @OneToMany(mappedBy="picUser", fetch = FetchType.EAGER)
-	@JsonIgnore
-    private List<Flight> flights;
+    @OneToMany(mappedBy="picUser", fetch = FetchType.LAZY)
+    private Set<Flight> flights;
  
     public Pilot () {
     	
@@ -128,11 +125,11 @@ public class Pilot extends User {
 		this.regisDate = regisDate;
 	}
 
-	public List<Flight> getFlights() {
+	public Set<Flight> getFlights() {
 		return flights;
 	}
 
-	public void setFlights(List<Flight> flights) {
+	public void setFlights(Set<Flight> flights) {
 		this.flights = flights;
 	}
 

@@ -1,5 +1,8 @@
 package es.udc.lbd.asi.restexample.model.service;
 
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,8 +37,13 @@ public class FlightService {
 	
 	@Transactional(readOnly = false)
 	public FlightDTO save(Flight flight) {
+		LocalDateTime depD = LocalDateTime.of(flight.getDepartureDate(), flight.getDepartureTime());
+		LocalDateTime arrD = LocalDateTime.of(flight.getArrivalDate(), flight.getArrivalTime());
+		
+		Long total = depD.until(arrD, ChronoUnit.MINUTES);
+		
 		Flight bdFlight = new Flight(flight.getDepartureDate(), flight.getDepartureTime(), flight.getArrivalDate(), flight.getArrivalTime(), 
-				flight.getTotalTime(), flight.getSeTime(), flight.getMeTime(), flight.getMpTime(), flight.getTakeoffsDay(), 
+				total, flight.getSeTime(), flight.getMeTime(), flight.getMpTime(), flight.getTakeoffsDay(), 
 				flight.getTakeoffsNight(), flight.getLandingsDay(), flight.getLandingsNight(), flight.getNightTime(), flight.getIfrTime(), 
 				flight.getPicTime(), flight.getCoopilotTime(), flight.getDualTime(), flight.getInstructorTime(), flight.getObservations(), 
 				flight.getAircraftReg(), flight.getTakeoffAerodrome(), flight.getLandingAerodrome(), flight.getPicUser(), flight.getAircraft());
@@ -47,11 +55,17 @@ public class FlightService {
 	@Transactional(readOnly = false)
 	public FlightDTO update (Flight flight) {
 		Flight bdFlight = flightDAO.findById(flight.getId());
+		
+		LocalDateTime depD = LocalDateTime.of(flight.getDepartureDate(), flight.getDepartureTime());
+		LocalDateTime arrD = LocalDateTime.of(flight.getArrivalDate(), flight.getArrivalTime());
+		
+		Long total = depD.until(arrD, ChronoUnit.MINUTES);
+		
 		bdFlight.setDepartureDate(flight.getDepartureDate());
 		bdFlight.setDepartureTime(flight.getDepartureTime());
 		bdFlight.setArrivalDate(flight.getArrivalDate());
 		bdFlight.setArrivalTime(flight.getArrivalTime());
-		bdFlight.setTotalTime(flight.getTotalTime());
+		bdFlight.setTotalTime(total);
 		bdFlight.setSeTime(flight.getSeTime());
 		bdFlight.setMeTime(flight.getMeTime());
 		bdFlight.setMpTime(flight.getMpTime());

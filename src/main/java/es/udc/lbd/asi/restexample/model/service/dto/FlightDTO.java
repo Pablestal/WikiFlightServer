@@ -3,10 +3,8 @@ package es.udc.lbd.asi.restexample.model.service.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
-import es.udc.lbd.asi.restexample.model.domain.Aircraft;
 import es.udc.lbd.asi.restexample.model.domain.Flight;
-import es.udc.lbd.asi.restexample.model.domain.Pilot;
+
 
 public class FlightDTO {
 
@@ -20,7 +18,7 @@ public class FlightDTO {
 	
 	private LocalTime arrivalTime;
 	
-	private LocalTime totalTime;
+	private Long totalTime;
 	
 	// Single pilot and multipilot times //
 	
@@ -64,13 +62,13 @@ public class FlightDTO {
 	
 	/// Associated aerodromes, pilot and aircraft ///
 	
-	private Aerodrome takeoffAerodrome;
+	private AerodromeDTO takeoffAerodrome;
 	
-	private Aerodrome landingAerodrome;
+	private AerodromeDTO landingAerodrome;
 	
-	private Pilot picUser;
+	private PilotDTO picUser;
 	
-	private Aircraft aircraft;
+	private AircraftDTO aircraft;
 	
 	public FlightDTO() {
 		
@@ -99,10 +97,11 @@ public class FlightDTO {
 		this.instructorTime = flight.getInstructorTime();
 		this.observations = flight.getObservations();
 		this.aircraftReg = flight.getAircraftReg();
-		this.takeoffAerodrome = flight.getTakeoffAerodrome();
-		this.landingAerodrome = flight.getLandingAerodrome();
-		this.picUser = flight.getPicUser();
-		this.aircraft = flight.getAircraft();
+		this.takeoffAerodrome = new AerodromeDTO(flight.getTakeoffAerodrome());
+		this.landingAerodrome = new AerodromeDTO(flight.getLandingAerodrome());
+		this.aircraft = new AircraftDTO(flight.getAircraft());
+		this.picUser = new PilotDTO(flight.getPicUser());
+
 	}
 
 	public Long getId() {
@@ -145,11 +144,11 @@ public class FlightDTO {
 		this.arrivalTime = arrivalTime;
 	}
 
-	public LocalTime getTotalTime() {
+	public Long getTotalTime() {
 		return totalTime;
 	}
 
-	public void setTotalTime(LocalTime totalTime) {
+	public void setTotalTime(Long totalTime) {
 		this.totalTime = totalTime;
 	}
 
@@ -273,35 +272,35 @@ public class FlightDTO {
 		this.aircraftReg = aircraftReg;
 	}
 
-	public Aerodrome getTakeoffAerodrome() {
+	public AerodromeDTO getTakeoffAerodrome() {
 		return takeoffAerodrome;
 	}
 
-	public void setTakeoffAerodrome(Aerodrome takeoffAerodrome) {
+	public void setTakeoffAerodrome(AerodromeDTO takeoffAerodrome) {
 		this.takeoffAerodrome = takeoffAerodrome;
 	}
 
-	public Aerodrome getLandingAerodrome() {
+	public AerodromeDTO getLandingAerodrome() {
 		return landingAerodrome;
 	}
 
-	public void setLandingAerodrome(Aerodrome landingAerodrome) {
+	public void setLandingAerodrome(AerodromeDTO landingAerodrome) {
 		this.landingAerodrome = landingAerodrome;
 	}
 
-	public Pilot getPicUser() {
+	public PilotDTO getPicUser() {
 		return picUser;
 	}
 
-	public void setPicUser(Pilot picUser) {
+	public void setPicUser(PilotDTO picUser) {
 		this.picUser = picUser;
 	}
 
-	public Aircraft getAircraft() {
+	public AircraftDTO getAircraft() {
 		return aircraft;
 	}
 
-	public void setAircraft(Aircraft aircraft) {
+	public void setAircraft(AircraftDTO aircraft) {
 		this.aircraft = aircraft;
 	}
 
