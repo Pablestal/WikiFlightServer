@@ -1,13 +1,12 @@
 package es.udc.lbd.asi.restexample.model.service.dto;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
 
 
-public class PilotDTO {
+public class PilotFollDTO {
 	private Long id;
     private String login;
     private String password;
@@ -20,13 +19,12 @@ public class PilotDTO {
     private String city;
     private LocalDate birthDate;
     private LocalDate regisDate;
-    private Set<PilotFollDTO> followers = new HashSet<>();
-    private Set<PilotFollDTO> following = new HashSet<>();
+   
 
-    public PilotDTO() {
+    public PilotFollDTO() {
     }
 
-	public PilotDTO(Pilot pilot) {
+	public PilotFollDTO(Pilot pilot) {
 		this.id = pilot.getId();
 		this.login = pilot.getLogin();
 		this.authority = pilot.getAuthority().name();
@@ -38,16 +36,6 @@ public class PilotDTO {
 		this.city = pilot.getCity();
 		this.birthDate = pilot.getBirthDate();
 		this.regisDate = pilot.getRegisDate();
-		
-		Set<Pilot> pil = pilot.getFollowers();
-		for(Pilot p : pil) {
-			this.followers.add(new PilotFollDTO(p));
-		}
-		
-		Set<Pilot> pil1 = pilot.getFollowing();
-		for(Pilot pt : pil1) {
-			this.following.add(new PilotFollDTO(pt));
-		}
 
 	}
 
@@ -145,22 +133,6 @@ public class PilotDTO {
 
 	public void setRegisDate(LocalDate regisDate) {
 		this.regisDate = regisDate;
-	}
-
-	public Set<PilotFollDTO> getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(Set<PilotFollDTO> followers) {
-		this.followers = followers;
-	}
-
-	public Set<PilotFollDTO> getFollowing() {
-		return following;
-	}
-
-	public void setFollowing(Set<PilotFollDTO> following) {
-		this.following = following;
 	}
   
 }

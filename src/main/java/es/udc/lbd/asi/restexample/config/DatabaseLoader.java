@@ -73,13 +73,20 @@ public class DatabaseLoader {
     	// USERS
     	LocalDate date = LocalDate.of(1946, 9, 11);
     	LocalDate date1 = LocalDate.of(1864, 9, 29);
+    	LocalDate date2 = LocalDate.of(1867, 4, 16);
+    	LocalDate date3 = LocalDate.of(1871, 8, 19);
+
     	
     	userService.registerAdmin("pablo", "pablo", "pablestal@gmail.com");
     	userService.registerAdmin("pepe", "pepe", "pepitopepe@gmail.com");
         userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonitotoni@gmail.com",
         		"España", "Verin", date);
         userService.registerPilot("miguel", "miguel", "Miguel", "de Unamuno", "y Jugo", "miguelinmigue@gmail.com",
-        		"España", "Bilbao", date1);
+        		"España", "Bilbao", date1); 
+        userService.registerPilot("wilbur", "wilbur", "Wilbur", "Wright", null, "wilburwilbi@gmail.com",
+        		"United States", "Millville", date2);
+        userService.registerPilot("orville", "orville", "Orville", "Wright", null, "orvilleorvi@gmail.com",
+        		"United States", "Dayton", date3);
         
         //AIRCRAFTS
         Aircraft aircraft1 = new Aircraft("Airbus", "A380");

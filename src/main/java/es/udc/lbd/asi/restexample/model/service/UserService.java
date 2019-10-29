@@ -93,6 +93,7 @@ public class UserService {
     	bdPilot.setCountry(pilot.getCountry());
     	bdPilot.setCity(pilot.getCity());
     	bdPilot.setBirthDate(pilot.getBirthDate());
+    	bdPilot.setFollowers(pilot.getFollowers());
     	
     	if (pilot.getPassword() != null) {
     	String encryptedPassword = passwordEncoder.encode(pilot.getPassword());

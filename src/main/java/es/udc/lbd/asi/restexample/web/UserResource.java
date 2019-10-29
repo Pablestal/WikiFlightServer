@@ -40,7 +40,7 @@ public class UserResource {
     public PilotDTO findByLogin(@PathVariable String login) {
     	return userService.findByLogin(login);
     }
-    
+ 
     @PutMapping("/updateavatar/{login}")
     public void updatePilotAvatar(@PathVariable String login, @ModelAttribute @Valid Pilot pilot, @ModelAttribute MultipartFile image, Errors errors) 
     		throws RequestBodyNotValidException, IOException {
@@ -58,7 +58,7 @@ public class UserResource {
     		
     		}
     }
-    
+   
     @PutMapping("/{login}")
     public PilotDTO updatePilot(@PathVariable String login, @RequestBody @Valid Pilot pilot, Errors errors) 
     		throws RequestBodyNotValidException, IOException {
@@ -67,7 +67,6 @@ public class UserResource {
 			throw new RequestBodyNotValidException("Body not valid");
 		} else {	
     		return userService.updatePilot(pilot);
-    		
     		}
     }
     

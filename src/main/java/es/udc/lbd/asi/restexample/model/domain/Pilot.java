@@ -1,11 +1,15 @@
 package es.udc.lbd.asi.restexample.model.domain;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -38,7 +42,18 @@ public class Pilot extends User {
     private LocalDate regisDate;
     
     @OneToMany(mappedBy="picUser", fetch = FetchType.LAZY)
-    private Set<Flight> flights;
+    private Set<Flight> flights = new HashSet<>();
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+			name = "Followers",
+			joinColumns = {@JoinColumn(name = "follower_id")},
+			inverseJoinColumns = {@JoinColumn (name = "followed_id")}
+			)
+    private Set<Pilot> followers = new HashSet<>();
+
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+    private Set<Pilot> following = new HashSet<>();
  
     public Pilot () {
     	
@@ -67,6 +82,21 @@ public class Pilot extends User {
 		this.birthDate = birthDate;
 		this.regisDate = regisDate;
 		
+	}
+
+	public Pilot(String name, String surname1, String surname2, String country, String city, LocalDate birthDate,
+			LocalDate regisDate, Set<Flight> flights, Set<Pilot> followers, Set<Pilot> following) {
+		super();
+		this.name = name;
+		this.surname1 = surname1;
+		this.surname2 = surname2;
+		this.country = country;
+		this.city = city;
+		this.birthDate = birthDate;
+		this.regisDate = regisDate;
+		this.flights = flights;
+		this.followers = followers;
+		this.following = following;
 	}
 
 	public String getName() {
@@ -131,6 +161,22 @@ public class Pilot extends User {
 
 	public void setFlights(Set<Flight> flights) {
 		this.flights = flights;
+	}
+
+	public Set<Pilot> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(Set<Pilot> followers) {
+		this.followers = followers;
+	}
+
+	public Set<Pilot> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Set<Pilot> following) {
+		this.following = following;
 	}
 
 	@Override

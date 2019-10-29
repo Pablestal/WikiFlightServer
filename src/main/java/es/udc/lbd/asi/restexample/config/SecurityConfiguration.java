@@ -80,6 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST, "/api/register").permitAll()
             .antMatchers(HttpMethod.POST, "/api/forgotpassword").permitAll()
             .antMatchers(HttpMethod.PUT, "/api/resetpassword/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/users/**").permitAll()
             .antMatchers("/**").authenticated()
         .and()
             .apply(securityConfigurerAdapter());;
