@@ -1,13 +1,15 @@
 package es.udc.lbd.asi.restexample.web;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,21 +44,10 @@ public class UserResource {
     }
  
     @PutMapping("/updateavatar/{login}")
-    public void updatePilotAvatar(@PathVariable String login, @ModelAttribute @Valid Pilot pilot, @ModelAttribute MultipartFile image, Errors errors) 
-    		throws RequestBodyNotValidException, IOException {
-    	errorHandler(errors);
-    	if (!login.equals(pilot.getLogin())) {
-			throw new RequestBodyNotValidException("Body not valid");
-		}
-    	
-    	if (image == null) {
-    		throw new RequestBodyNotValidException("Body not valid");
-    	} else {	
-    		String destination = "C:\\Users\\pable\\Documents\\FIC\\2º Cuatrimestre\\tfgclient\\public\\images\\avatars\\"+ pilot.getLogin() + "avatar.jpg";
-    		File file = new File(destination);
-    		image.transferTo(file);
-    		
-    		}
+    public void updatePilotAvatar(@PathVariable String login, @ModelAttribute MultipartFile image, ModelMap modelMap) 
+    		throws Exception{
+        	modelMap.addAttribute("image", image);
+    		userService.store(image);		
     }
    
     @PutMapping("/{login}")
@@ -70,6 +61,16 @@ public class UserResource {
     		}
     }
     
+    @GetMapping("/image/{path}")
+    public Resource getImage(@PathVariable String path) {
+        try {
+			return userService.getImageAsResource(path);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
+		return null;
+    }
+
     private void errorHandler(Errors errors) throws RequestBodyNotValidException {
 		if (errors.hasErrors()) {
 			String errorMsg = errors.getFieldErrors().stream()

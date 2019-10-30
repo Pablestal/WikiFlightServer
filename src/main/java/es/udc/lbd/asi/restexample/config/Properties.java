@@ -9,6 +9,15 @@ public class Properties {
     private String clientHost;
     private String jwtSecretKey;
     private Long jwtValidity;
+    private String resourcePath;
+    
+    public String getResourcePath() {
+		return resourcePath;
+	}
+
+	public void setResourcePath(String resourcePath) {
+		this.resourcePath = resourcePath;
+	}
 
     public String getClientHost() {
         return clientHost;

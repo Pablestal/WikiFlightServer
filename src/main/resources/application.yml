@@ -28,3 +28,4 @@ properties:
     clientHost: http://localhost:3000
     jwtSecretKey: thiadfnoasdbnawiougasonfpoasasdfhoas
     jwtValidity: 7200
+    resourcePath: ./resources/images
