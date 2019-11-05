@@ -10,64 +10,43 @@ public class FlightDTO {
 
 	private Long id;
 	
+	// Departure and Arrival times //
 	private LocalDate departureDate;
-	
 	private LocalTime departureTime;
-	
 	private LocalDate arrivalDate;
-	
 	private LocalTime arrivalTime;
-	
 	private Long totalTime;
 	
 	// Single pilot and multipilot times //
-	
-	private LocalTime seTime;
-	
+	private LocalTime seTime;	
 	private LocalTime meTime;
-	
 	private LocalTime mpTime;
 	
 	// Takeoffs and landings //
-	
 	private int takeoffsDay;
-	
 	private int takeoffsNight;
-	
 	private int landingsDay;
-	
 	private int landingsNight;
 	
 	// Operational conditions time //
-	
 	private LocalTime nightTime;
-	
 	private LocalTime ifrTime;
 	
 	// Pilot function time //
-	
 	private LocalTime picTime;
-	
 	private LocalTime coopilotTime;
-	
 	private LocalTime dualTime;
-	
 	private LocalTime instructorTime;
 	
 	/////////////////////////////////////////
 	
 	private String observations;
-	
 	private String aircraftReg;
 	
 	/// Associated aerodromes, pilot and aircraft ///
-	
 	private AerodromeDTO takeoffAerodrome;
-	
 	private AerodromeDTO landingAerodrome;
-	
 	private PilotDTO picUser;
-	
 	private AircraftDTO aircraft;
 	
 	public FlightDTO() {

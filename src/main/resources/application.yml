@@ -27,5 +27,5 @@ spring:
 properties:
     clientHost: http://localhost:3000
     jwtSecretKey: thiadfnoasdbnawiougasonfpoasasdfhoas
-    jwtValidity: 7200
+    jwtValidity: 21600
     resourcePath: ./resources/images

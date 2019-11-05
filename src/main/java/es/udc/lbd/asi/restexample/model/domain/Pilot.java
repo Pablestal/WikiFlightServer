@@ -54,6 +54,12 @@ public class Pilot extends User {
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
     private Set<Pilot> following = new HashSet<>();
+    
+    @OneToMany
+    private Set<Route> createdRoutes = new HashSet<>();
+    
+    @OneToMany
+    private Set<Route> favRoutes = new HashSet<>();
  
     public Pilot () {
     	
@@ -177,6 +183,22 @@ public class Pilot extends User {
 
 	public void setFollowing(Set<Pilot> following) {
 		this.following = following;
+	}
+	
+	public Set<Route> getCreatedRoutes() {
+		return createdRoutes;
+	}
+
+	public void setCreatedRoutes(Set<Route> createdRoutes) {
+		this.createdRoutes = createdRoutes;
+	}
+
+	public Set<Route> getFavRoutes() {
+		return favRoutes;
+	}
+
+	public void setFavRoutes(Set<Route> favRoutes) {
+		this.favRoutes = favRoutes;
 	}
 
 	@Override

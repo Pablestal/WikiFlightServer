@@ -71,18 +71,16 @@ public class DatabaseLoader {
     public void loadData() throws UserLoginExistsException {
     	
     	// USERS
-    	LocalDate date = LocalDate.of(1946, 9, 11);
-    	LocalDate date1 = LocalDate.of(1864, 9, 29);
+    	LocalDate date1 = LocalDate.of(1895, 9, 21);
     	LocalDate date2 = LocalDate.of(1867, 4, 16);
     	LocalDate date3 = LocalDate.of(1871, 8, 19);
 
     	
     	userService.registerAdmin("pablo", "pablo", "pablestal@gmail.com");
     	userService.registerAdmin("pepe", "pepe", "pepitopepe@gmail.com");
-        userService.registerPilot("antonio", "antonio", "Antonio", "Lorenzo", "Fernandez", "antonitotoni@gmail.com",
-        		"España", "Verin", date);
-        userService.registerPilot("miguel", "miguel", "Miguel", "de Unamuno", "y Jugo", "miguelinmigue@gmail.com",
-        		"España", "Bilbao", date1); 
+      
+        userService.registerPilot("delacierva", "delacierva", "Juan", "de la Cierva", "y Codorníu", "delaciervajuan@gmail.com",
+        		"España", "Murcia", date1); 
         userService.registerPilot("wilbur", "wilbur", "Wilbur", "Wright", null, "wilburwilbi@gmail.com",
         		"United States", "Millville", date2);
         userService.registerPilot("orville", "orville", "Orville", "Wright", null, "orvilleorvi@gmail.com",
@@ -132,15 +130,15 @@ public class DatabaseLoader {
         LocalTime instr = LocalTime.of(0, 0);
         
         Flight flight1 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
-        		"Ruta por Coruña", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(1L), pilotDAO.findByLogin("miguel"),
+        		"Ruta por Coruña", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(1L), pilotDAO.findByLogin("delacierva"),
         		aircraftDAO.findById(1L));
         
         Flight flight2 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
-        		"De Coruña a Santiago", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("miguel"),
+        		"De Coruña a Santiago", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("delacierva"),
         		aircraftDAO.findById(2L));
         
         Flight flight3 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
-        		"El de Antonio", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("antonio"),
+        		"De Coruña a Barcelona", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(3L), pilotDAO.findByLogin("delacierva"),
         		aircraftDAO.findById(1L));
         
         flightService.save(flight1);

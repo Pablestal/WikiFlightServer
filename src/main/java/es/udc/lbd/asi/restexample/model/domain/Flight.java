@@ -104,7 +104,8 @@ public class Flight {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aircraft aircraft;
 	
-	// ROUTES MISSING (routes association)
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Route route;
 		
 
 	public Flight() {
@@ -342,10 +343,14 @@ public class Flight {
 	public void setAircraft(Aircraft aircraft) {
 		this.aircraft = aircraft;
 	}
-	
-	
 
-	
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
 
 	@Override
 	public String toString() {
