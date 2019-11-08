@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import es.udc.lbd.asi.restexample.model.domain.Pilot;
 import es.udc.lbd.asi.restexample.model.domain.Route;
 import es.udc.lbd.asi.restexample.model.repository.util.GenericDAOHibernate;
 
@@ -15,6 +16,11 @@ public class RouteDAOHibernate extends GenericDAOHibernate implements RouteDAO{
 		return getSession().createQuery("from Route").list();
 	}
 
+	@Override
+	public List<Route> findByPilot(Pilot pilot) {
+		return getSession().createQuery("from Route where pilot= :pilot").setParameter("pilot", pilot).list();
+	}
+	
 	@Override
 	public void save(Route route) {
 		getSession().saveOrUpdate(route);

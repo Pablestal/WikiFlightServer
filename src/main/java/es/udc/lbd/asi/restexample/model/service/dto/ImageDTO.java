@@ -1,6 +1,5 @@
 package es.udc.lbd.asi.restexample.model.service.dto;
 
-import org.locationtech.jts.geom.MultiLineString;
 import org.locationtech.jts.geom.Point;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

@@ -14,50 +14,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.udc.lbd.asi.restexample.model.domain.Aircraft;
-import es.udc.lbd.asi.restexample.model.service.AircraftService;
-import es.udc.lbd.asi.restexample.model.service.dto.AircraftDTO;
+import es.udc.lbd.asi.restexample.model.domain.Route;
+import es.udc.lbd.asi.restexample.model.service.RouteService;
+import es.udc.lbd.asi.restexample.model.service.dto.RouteDTO;
 import es.udc.lbd.asi.restexample.web.exception.RequestBodyNotValidException;
 
 @RestController
-@RequestMapping("/api/aircrafts")
-public class AircraftResource {
-	
+@RequestMapping("/api/routes")
+public class RouteResource {
+
 	@Autowired
-	private AircraftService aircraftService;
+	private RouteService routeService;
 	
-	@GetMapping
-	public List<AircraftDTO> findAll() {
-		return aircraftService.findAll();
+	@GetMapping("/{login}")
+	public List<RouteDTO> findByPilot(@PathVariable String login) {
+		return routeService.findByPilot(login);
 	}
 	
-	@GetMapping("/{model}")
-	public AircraftDTO findByName(@PathVariable String model) {
-		return aircraftService.findByModel(model);
+	@GetMapping
+	public RouteDTO findById(@RequestParam Long id) {
+		return routeService.findById(id);
 	}
 	
 	@PostMapping
-	public AircraftDTO save(@RequestBody @Valid Aircraft aircraft, Errors errors) throws RequestBodyNotValidException {
+	public RouteDTO save(@RequestBody @Valid Route route, Errors errors) throws RequestBodyNotValidException {
 		errorHandler(errors);
-		return aircraftService.save(aircraft);
+		return routeService.save(route);
 	}
 	
 	@PutMapping("/{id}")
-	public AircraftDTO update(@PathVariable Long id, @RequestBody @Valid Aircraft aircraft, Errors errors)
+	public RouteDTO update(@PathVariable Long id, @RequestBody @Valid Route route, Errors errors)
 			throws RequestBodyNotValidException {
 		errorHandler(errors);
-		if (id != aircraft.getId()) {
+		if (id != route.getId()) {
 			throw new RequestBodyNotValidException(null);
 		}
-		
-		return aircraftService.update(aircraft);
+				
+		return routeService.update(route);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		aircraftService.deleteById(id);
+		routeService.deleteById(id);
 	}
 	
 	private void errorHandler(Errors errors) throws RequestBodyNotValidException {

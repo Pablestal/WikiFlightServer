@@ -11,55 +11,38 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.udc.lbd.asi.restexample.model.domain.Aircraft;
-import es.udc.lbd.asi.restexample.model.service.AircraftService;
-import es.udc.lbd.asi.restexample.model.service.dto.AircraftDTO;
+import es.udc.lbd.asi.restexample.model.domain.Comment;
+import es.udc.lbd.asi.restexample.model.service.CommentService;
+import es.udc.lbd.asi.restexample.model.service.dto.CommentDTO;
 import es.udc.lbd.asi.restexample.web.exception.RequestBodyNotValidException;
 
 @RestController
-@RequestMapping("/api/aircrafts")
-public class AircraftResource {
-	
+@RequestMapping("/api/comments")
+public class CommentResource {
+
 	@Autowired
-	private AircraftService aircraftService;
+	private CommentService commentService;
 	
-	@GetMapping
-	public List<AircraftDTO> findAll() {
-		return aircraftService.findAll();
-	}
-	
-	@GetMapping("/{model}")
-	public AircraftDTO findByName(@PathVariable String model) {
-		return aircraftService.findByModel(model);
+	@GetMapping("/{routeId}")
+	public List<CommentDTO> findByRoute(@PathVariable Long routeId) {
+		return commentService.findByRoute(routeId);
 	}
 	
 	@PostMapping
-	public AircraftDTO save(@RequestBody @Valid Aircraft aircraft, Errors errors) throws RequestBodyNotValidException {
+	public CommentDTO save(@RequestBody @Valid Comment comment, Errors errors) throws RequestBodyNotValidException {
 		errorHandler(errors);
-		return aircraftService.save(aircraft);
-	}
-	
-	@PutMapping("/{id}")
-	public AircraftDTO update(@PathVariable Long id, @RequestBody @Valid Aircraft aircraft, Errors errors)
-			throws RequestBodyNotValidException {
-		errorHandler(errors);
-		if (id != aircraft.getId()) {
-			throw new RequestBodyNotValidException(null);
-		}
-		
-		return aircraftService.update(aircraft);
+		return commentService.save(comment);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		aircraftService.deleteById(id);
+		commentService.deleteById(id);
 	}
-	
+		
 	private void errorHandler(Errors errors) throws RequestBodyNotValidException {
 		if (errors.hasErrors()) {
 			String errorMsg = errors.getFieldErrors().stream()

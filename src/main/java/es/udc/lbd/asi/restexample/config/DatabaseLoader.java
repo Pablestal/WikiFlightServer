@@ -2,6 +2,8 @@ package es.udc.lbd.asi.restexample.config;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 import es.udc.lbd.asi.restexample.model.domain.Aircraft;
 import es.udc.lbd.asi.restexample.model.domain.Flight;
+import es.udc.lbd.asi.restexample.model.domain.Pilot;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
 import es.udc.lbd.asi.restexample.model.repository.AerodromeDAO;
 import es.udc.lbd.asi.restexample.model.repository.AircraftDAO;
@@ -85,6 +88,15 @@ public class DatabaseLoader {
         		"United States", "Millville", date2);
         userService.registerPilot("orville", "orville", "Orville", "Wright", null, "orvilleorvi@gmail.com",
         		"United States", "Dayton", date3);
+        
+        Pilot wil = pilotDAO.findByLogin("wilbur");
+        Pilot orv = pilotDAO.findByLogin("orville");
+        Pilot pil = pilotDAO.findByLogin("delacierva");
+        Set<Pilot> piset = new HashSet<>();
+        piset.add(wil);
+        piset.add(orv);
+        pil.setFollowers(piset);
+        
         
         //AIRCRAFTS
         Aircraft aircraft1 = new Aircraft("Airbus", "A380");

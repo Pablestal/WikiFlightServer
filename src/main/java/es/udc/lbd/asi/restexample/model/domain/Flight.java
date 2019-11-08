@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Flight")
@@ -20,15 +21,19 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@NotNull
 	@Column
 	private LocalDate departureDate;
 	
+	@NotNull
 	@Column
 	private LocalTime departureTime;
 	
+	@NotNull
 	@Column
 	private LocalDate arrivalDate;
 	
+	@NotNull
 	@Column
 	private LocalTime arrivalTime;
 	
@@ -92,15 +97,19 @@ public class Flight {
 	
 	/// Associated aerodromes, pilot and aircraft ///
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome takeoffAerodrome;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome landingAerodrome;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pilot picUser;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aircraft aircraft;
 	

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="Aircraft", uniqueConstraints=
@@ -17,9 +18,11 @@ public class Aircraft {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@NotEmpty
 	@Column(nullable=false)
 	private String manufacturer;
-	
+
+	@NotEmpty
 	@Column(nullable=false)
 	private String model;
 	

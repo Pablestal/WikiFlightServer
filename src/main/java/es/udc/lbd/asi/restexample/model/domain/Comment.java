@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Comment")
@@ -19,15 +21,19 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@NotEmpty
 	@Column
 	private String description;
 	
+	@NotEmpty
 	@Column
 	private LocalDateTime date;
 
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY) 
 	private Route route;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pilot pilot;
 	

@@ -13,28 +13,34 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @PrimaryKeyJoinColumn(name="pilotId")
 @Table(name="Pilot")
 public class Pilot extends User {
 	
-    
+    @NotEmpty
     @Column(nullable = false)
     private String name;
     
+    @NotEmpty
     @Column(nullable = false)
     private String surname1;
     
     @Column
     private String surname2;
     
+    @NotEmpty
     @Column(nullable = false) 
     private String country;
     
+    @NotEmpty
     @Column(nullable = false) 
     private String city;
     
+    @NotNull
     @Column(nullable = false)
     private LocalDate birthDate;
     

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.locationtech.jts.geom.Point;
 
@@ -24,15 +26,19 @@ public class Aerodrome {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@NotEmpty
 	@Column
 	private String codIATA;
 	
+	@NotEmpty
 	@Column
 	private String codOACI;
 	
+	@NotEmpty
 	@Column(nullable=false)
 	private String name;
 	
+	@NotEmpty
 	@Column(nullable=false)
 	private String country;
 	
@@ -42,6 +48,7 @@ public class Aerodrome {
 	@Column
 	private Double elevation;
 	
+	@NotNull
 	@Column(nullable=false)
 	@JsonSerialize(using = CustomGeometrySerializer.class, as= Point.class)
 	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= Point.class)

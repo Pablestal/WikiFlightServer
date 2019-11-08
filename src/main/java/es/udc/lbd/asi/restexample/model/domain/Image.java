@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.locationtech.jts.geom.Point;
 
@@ -25,20 +27,25 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@NotEmpty
 	@Column
 	private String name;
 	
+	@NotEmpty
 	@Column
 	private String description;
 	
+	@NotNull
 	@Column
 	@JsonSerialize(using = CustomGeometrySerializer.class, as= Point.class)
 	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= Point.class)
 	private Point location;
 	
+	@NotNull
 	@Column
 	private Integer imageOrder;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Route route;
 	

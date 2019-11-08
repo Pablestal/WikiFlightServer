@@ -52,9 +52,7 @@ public class FlightResource {
 		if (id != flight.getId()) {
 			throw new RequestBodyNotValidException(null);
 		}
-		
-		System.out.println("CONTROLADOR >> " + flight.toString());
-		
+				
 		return flightService.update(flight);
 	}
 	

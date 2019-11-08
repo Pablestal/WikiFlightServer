@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.locationtech.jts.geom.MultiLineString;
 
@@ -30,29 +32,36 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@NotEmpty
 	@Column
 	private String name;
 	
 	@Column
 	private Boolean isPublic;
 	
+	@NotNull
 	@Column
 	private LocalDate publicationDay;
 	
+	@NotEmpty
 	@Column
 	private String description;
 	
+	@NotNull
 	@Column
 	@JsonSerialize(using = CustomGeometrySerializer.class, as= MultiLineString.class)
 	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= MultiLineString.class)
 	private MultiLineString path;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome takeoffAerodrome;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome landingAerodrome;
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pilot pilot;
 	
