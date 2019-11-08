@@ -25,7 +25,7 @@ public class User {
     @NotEmpty
     @Column(unique = true, nullable = false)
     private String login;
-    @NotEmpty
+
     private String password;
     
     @NotNull
