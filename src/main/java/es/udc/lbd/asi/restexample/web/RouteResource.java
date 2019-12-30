@@ -6,16 +6,19 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.udc.lbd.asi.restexample.model.domain.Route;
 import es.udc.lbd.asi.restexample.model.service.RouteService;
@@ -29,19 +32,24 @@ public class RouteResource {
 	@Autowired
 	private RouteService routeService;
 	
-	@GetMapping("/{login}")
-	public List<RouteDTO> findByPilot(@PathVariable String login) {
-		return routeService.findByPilot(login);
+	@GetMapping
+	public List<RouteDTO> findPublic() {
+		return routeService.findPublic();
 	}
 	
-	@GetMapping
-	public RouteDTO findById(@RequestParam Long id) {
+//	@GetMapping("/{login}")
+//	public List<RouteDTO> findByPilot(@PathVariable String login) {
+//		return routeService.findByPilot(login);
+//	}
+	
+	@GetMapping("/{id}")
+	public RouteDTO findById(@PathVariable Long id) {
 		return routeService.findById(id);
 	}
 	
 	@PostMapping
 	public RouteDTO save(@RequestBody @Valid Route route, Errors errors) throws RequestBodyNotValidException {
-		errorHandler(errors);
+		errorHandler(errors);		
 		return routeService.save(route);
 	}
 	
@@ -55,6 +63,23 @@ public class RouteResource {
 				
 		return routeService.update(route);
 	}
+	
+	@PutMapping("/uploadfiles/{id}")
+    public void uploadRouteFiles(@PathVariable Long id, @ModelAttribute MultipartFile file, ModelMap modelMap) 
+    		throws Exception{
+		
+		String filename = StringUtils.cleanPath(file.getOriginalFilename());
+		String fileFormat = filename.substring(filename.length() - 4);
+		
+        if (fileFormat.equals(".gpx")) {
+        	routeService.store(file);
+        	routeService.parsePathFile(file, id);
+        } else {
+        	modelMap.addAttribute("file", file);
+			routeService.store(file);
+		}
+        			
+    }
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {

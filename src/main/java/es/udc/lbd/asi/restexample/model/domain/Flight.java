@@ -125,7 +125,7 @@ public class Flight {
 			int landingsDay, int landingsNight, LocalTime nightTime, LocalTime ifrTime, LocalTime picTime,
 			LocalTime coopilotTime, LocalTime dualTime, LocalTime instructorTime, String observations,
 			String aircraftReg, Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot picUser,
-			Aircraft aircraft) {
+			Aircraft aircraft, Route route) {
 		super();
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
@@ -151,6 +151,7 @@ public class Flight {
 		this.landingAerodrome = landingAerodrome;
 		this.picUser = picUser;
 		this.aircraft = aircraft;
+		this.route = route;
 	}
 
 	public Long getId() {

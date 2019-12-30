@@ -16,15 +16,15 @@ public class ImageDTO {
 	private String description;
 	@JsonSerialize(using = CustomGeometrySerializer.class, as= Point.class)
 	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= Point.class)
-	private Point location;
-	private Integer order;
+	private Point position;
+	private String path;
 	
 	public ImageDTO(Image image) {
 		this.id = image.getId();
 		this.name = image.getName();
 		this.description = image.getDescription();
-		this.location = image.getLocation();
-		this.order = image.getOrder();
+		this.position = image.getPosition();
+		this.path = image.getPath();
 	}
 
 	public Long getId() {
@@ -51,22 +51,20 @@ public class ImageDTO {
 		this.description = description;
 	}
 
-	public Point getLocation() {
-		return location;
+	public Point getPosition() {
+		return position;
 	}
 
-	public void setLocation(Point location) {
-		this.location = location;
+	public void setLocation(Point position) {
+		this.position = position;
 	}
 
-	public Integer getOrder() {
-		return order;
+	public String getPath() {
+		return path;
 	}
 
-	public void setOrder(Integer order) {
-		this.order = order;
+	public void setPath(String path) {
+		this.path = path;
 	}
-	
-	
 	
 }

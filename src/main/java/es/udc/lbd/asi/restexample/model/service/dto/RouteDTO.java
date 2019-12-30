@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.locationtech.jts.geom.MultiLineString;
+import org.locationtech.jts.geom.LineString;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -23,12 +24,14 @@ public class RouteDTO {
 	private Boolean isPublic;
 	private LocalDate publicationDay;
 	private String description;
-	@JsonSerialize(using = CustomGeometrySerializer.class, as= MultiLineString.class)
-	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= MultiLineString.class)
-	private MultiLineString path;
+	@JsonSerialize(using = CustomGeometrySerializer.class, as= LineString.class)
+	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= LineString.class)
+	private LineString path;
 	private AerodromeDTO takeoffAerodrome;
 	private AerodromeDTO landingAerodrome;
+	@JsonIgnore
 	private PilotDTO pilot;
+	@JsonIgnore
 	private Set<FlightDTO> flights = new HashSet<>();
 	private Set<CommentDTO> comments = new HashSet<>();
 	private Set<ImageDTO> images = new HashSet<>();
@@ -100,11 +103,11 @@ public class RouteDTO {
 		this.description = description;
 	}
 
-	public MultiLineString getPath() {
+	public LineString getPath() {
 		return path;
 	}
 
-	public void setPath(MultiLineString path) {
+	public void setPath(LineString path) {
 		this.path = path;
 	}
 

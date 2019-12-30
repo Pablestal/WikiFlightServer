@@ -28,18 +28,7 @@ public class AerodromeService {
 	
 	@Transactional(readOnly = false)
 	public AerodromeDTO save(Aerodrome aerodrome) {
-		String iata = "ZZZ";
-		String oaci = "ZZZZ";
-		
-		if (aerodrome.getCodIATA() != null) {
-			iata = aerodrome.getCodIATA();
-		} else iata = "ZZZ";
-		
-		if (aerodrome.getCodOACI() != null) {
-			oaci = aerodrome.getCodOACI();
-		} else oaci = "ZZZ";
-
-		Aerodrome bdAerodrome= new Aerodrome(iata, oaci, aerodrome.getName(), 
+		Aerodrome bdAerodrome= new Aerodrome(aerodrome.getCodIATA(), aerodrome.getCodOACI(), aerodrome.getName(), 
 				aerodrome.getCountry(), aerodrome.getCity(), aerodrome.getElevation(), aerodrome.getPosition());
 		aerodromeDAO.save(bdAerodrome);
 		

@@ -143,15 +143,15 @@ public class DatabaseLoader {
         
         Flight flight1 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"Ruta por Coruña", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(1L), pilotDAO.findByLogin("delacierva"),
-        		aircraftDAO.findById(1L));
+        		aircraftDAO.findById(1L), null);
         
         Flight flight2 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"De Coruña a Santiago", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("delacierva"),
-        		aircraftDAO.findById(2L));
+        		aircraftDAO.findById(2L), null);
         
         Flight flight3 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"De Coruña a Barcelona", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(3L), pilotDAO.findByLogin("delacierva"),
-        		aircraftDAO.findById(1L));
+        		aircraftDAO.findById(1L), null);
         
         flightService.save(flight1);
         flightService.save(flight2);

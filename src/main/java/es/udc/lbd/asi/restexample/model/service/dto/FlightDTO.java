@@ -43,11 +43,12 @@ public class FlightDTO {
 	private String observations;
 	private String aircraftReg;
 	
-	/// Associated aerodromes, pilot and aircraft ///
+	/// Associated aerodromes, pilot, aircraft and route ///
 	private AerodromeDTO takeoffAerodrome;
 	private AerodromeDTO landingAerodrome;
 	private PilotDTO picUser;
 	private AircraftDTO aircraft;
+	private RouteDTO route;
 	
 	public FlightDTO() {
 		
@@ -80,7 +81,7 @@ public class FlightDTO {
 		this.landingAerodrome = new AerodromeDTO(flight.getLandingAerodrome());
 		this.aircraft = new AircraftDTO(flight.getAircraft());
 		this.picUser = new PilotDTO(flight.getPicUser());
-
+		if (flight.getRoute() != null) this.route = new RouteDTO(flight.getRoute());
 	}
 
 	public Long getId() {
@@ -282,18 +283,13 @@ public class FlightDTO {
 	public void setAircraft(AircraftDTO aircraft) {
 		this.aircraft = aircraft;
 	}
-
-	@Override
-	public String toString() {
-		return "FlightDTO [id=" + id + ", departureTime=" + departureTime + ", arrivalTime=" + arrivalTime
-				+ ", totalTime=" + totalTime + ", seTime=" + seTime + ", meTime=" + meTime + ", mpTime=" + mpTime
-				+ ", takeoffsDay=" + takeoffsDay + ", takeoffsNight=" + takeoffsNight + ", landingsDay=" + landingsDay
-				+ ", landingsNight=" + landingsNight + ", nightTime=" + nightTime + ", ifrTime=" + ifrTime
-				+ ", picTime=" + picTime + ", coopilotTime=" + coopilotTime + ", dualTime=" + dualTime
-				+ ", instructorTime=" + instructorTime + ", observations=" + observations + ", aircraftReg="
-				+ aircraftReg + ", takeoffAerodrome=" + takeoffAerodrome + ", landingAerodrome=" + landingAerodrome
-				+ ", picUser=" + picUser + ", aircraft=" + aircraft + "]";
-	}
 	
+	public RouteDTO getRoute() {
+		return route;
+	}
+
+	public void setRoute(RouteDTO route) {
+		this.route = route;
+	}
 	
 }

@@ -39,25 +39,25 @@ public class Image {
 	@Column
 	@JsonSerialize(using = CustomGeometrySerializer.class, as= Point.class)
 	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= Point.class)
-	private Point location;
+	private Point position;
 	
-	@NotNull
 	@Column
-	private Integer imageOrder;
+	private String path;
 	
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Route route;
+	
+	
 	
 	public Image() {
 	}
 
-	public Image(String name, String description, Point location, Integer imageOrder, Route route) {
+	public Image(String name, String description, Point position, String path, Route route) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.location = location;
-		this.imageOrder = imageOrder;
+		this.position = position;
+		this.path = path;
 		this.route = route;
 	}
 
@@ -85,20 +85,20 @@ public class Image {
 		this.description = description;
 	}
 
-	public Point getLocation() {
-		return location;
+	public Point getPosition() {
+		return position;
 	}
 
-	public void setLocation(Point location) {
-		this.location = location;
+	public void setPosition(Point position) {
+		this.position = position;
 	}
 
-	public Integer getOrder() {
-		return imageOrder;
+	public String getPath() {
+		return path;
 	}
 
-	public void setOrder(Integer imageOrder) {
-		this.imageOrder = imageOrder;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public Route getRoute() {
@@ -107,6 +107,12 @@ public class Image {
 
 	public void setRoute(Route route) {
 		this.route = route;
+	}
+
+	@Override
+	public String toString() {
+		return "Image [id=" + id + ", name=" + name + ", description=" + description + ", position=" + position
+				+ ", path=" + path + "]";
 	}
 	
 	

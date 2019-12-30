@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.locationtech.jts.geom.MultiLineString;
+import org.locationtech.jts.geom.LineString;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -39,7 +39,6 @@ public class Route {
 	@Column
 	private Boolean isPublic;
 	
-	@NotNull
 	@Column
 	private LocalDate publicationDay;
 	
@@ -47,11 +46,10 @@ public class Route {
 	@Column
 	private String description;
 	
-	@NotNull
 	@Column
-	@JsonSerialize(using = CustomGeometrySerializer.class, as= MultiLineString.class)
-	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= MultiLineString.class)
-	private MultiLineString path;
+	@JsonSerialize(using = CustomGeometrySerializer.class, as= LineString.class)
+	@JsonDeserialize(using = CustomGeometryDeserializer.class, as= LineString.class)
+	private LineString path;
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -61,7 +59,6 @@ public class Route {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Aerodrome landingAerodrome;
 	
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pilot pilot;
 	
@@ -76,8 +73,21 @@ public class Route {
 	
 	public Route() {
 	}
+	
+	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, 
+			Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot pilot, Set<Image> images) {
+		super();
+		this.name = name;
+		this.isPublic = isPublic;
+		this.publicationDay = publicationDay;
+		this.description = description;
+		this.takeoffAerodrome = takeoffAerodrome;
+		this.landingAerodrome = landingAerodrome;
+		this.pilot = pilot;
+		this.images = images;
+	}
 
-	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, MultiLineString path,
+	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, 
 			Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot pilot, Set<Flight> flights,
 			Set<Comment> comments, Set<Image> images) {
 		super();
@@ -85,7 +95,7 @@ public class Route {
 		this.isPublic = isPublic;
 		this.publicationDay = publicationDay;
 		this.description = description;
-		this.path = path;
+//		this.path = path;
 		this.takeoffAerodrome = takeoffAerodrome;
 		this.landingAerodrome = landingAerodrome;
 		this.pilot = pilot;
@@ -134,11 +144,11 @@ public class Route {
 		this.description = description;
 	}
 
-	public MultiLineString getPath() {
+	public LineString getPath() {
 		return path;
 	}
 
-	public void setPath(MultiLineString path) {
+	public void setPath(LineString path) {
 		this.path = path;
 	}
 
@@ -194,7 +204,7 @@ public class Route {
 	public String toString() {
 		return "Route [id=" + id + ", name=" + name + ", isPublic=" + isPublic + ", publicationDay=" + publicationDay
 				+ ", description=" + description + ", path=" + path + ", takeoffAerodrome=" + takeoffAerodrome
-				+ ", landingAerodrome=" + landingAerodrome + ", pilot=" + pilot + ", flights=" + flights + "]";
+				+ ", landingAerodrome=" + landingAerodrome + ", pilot=" + pilot.getName() + "]";
 	}
 	
 	

@@ -46,7 +46,8 @@ public class FlightService {
 				total, flight.getSeTime(), flight.getMeTime(), flight.getMpTime(), flight.getTakeoffsDay(), 
 				flight.getTakeoffsNight(), flight.getLandingsDay(), flight.getLandingsNight(), flight.getNightTime(), flight.getIfrTime(), 
 				flight.getPicTime(), flight.getCoopilotTime(), flight.getDualTime(), flight.getInstructorTime(), flight.getObservations(), 
-				flight.getAircraftReg(), flight.getTakeoffAerodrome(), flight.getLandingAerodrome(), flight.getPicUser(), flight.getAircraft());
+				flight.getAircraftReg(), flight.getTakeoffAerodrome(), flight.getLandingAerodrome(), flight.getPicUser(), flight.getAircraft(),
+				flight.getRoute());
 		
 		flightDAO.save(bdFlight);
 		return new FlightDTO(bdFlight);
@@ -84,9 +85,8 @@ public class FlightService {
 		bdFlight.setTakeoffAerodrome(flight.getTakeoffAerodrome());
 		bdFlight.setLandingAerodrome(flight.getLandingAerodrome());
 		bdFlight.setAircraft(flight.getAircraft());
+		bdFlight.setRoute(flight.getRoute());
 		
-		System.out.println("BDFLIGT SERV >> " + flight.toString());
-
 		flightDAO.save(bdFlight);
 		return new FlightDTO(bdFlight);
 	}
