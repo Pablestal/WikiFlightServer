@@ -37,12 +37,12 @@ public class RouteResource {
 		return routeService.findPublic();
 	}
 	
-//	@GetMapping("/{login}")
-//	public List<RouteDTO> findByPilot(@PathVariable String login) {
-//		return routeService.findByPilot(login);
-//	}
+	@GetMapping("/{login}")
+	public List<RouteDTO> findByPilot(@PathVariable String login) {
+		return routeService.findByPilot(login);
+	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/detail/{id}")
 	public RouteDTO findById(@PathVariable Long id) {
 		return routeService.findById(id);
 	}

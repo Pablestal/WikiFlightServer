@@ -61,7 +61,7 @@ public class Pilot extends User {
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
     private Set<Pilot> following = new HashSet<>();
     
-    @OneToMany
+    @OneToMany(mappedBy="pilot", fetch = FetchType.LAZY)
     private Set<Route> createdRoutes = new HashSet<>();
     
     @OneToMany

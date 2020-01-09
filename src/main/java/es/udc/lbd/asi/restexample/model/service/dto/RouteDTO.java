@@ -29,8 +29,7 @@ public class RouteDTO {
 	private LineString path;
 	private AerodromeDTO takeoffAerodrome;
 	private AerodromeDTO landingAerodrome;
-	@JsonIgnore
-	private PilotDTO pilot;
+	private PilotRouteDTO pilot;
 	@JsonIgnore
 	private Set<FlightDTO> flights = new HashSet<>();
 	private Set<CommentDTO> comments = new HashSet<>();
@@ -45,7 +44,7 @@ public class RouteDTO {
 		this.path = route.getPath();
 		this.takeoffAerodrome = new AerodromeDTO(route.getTakeoffAerodrome());
 		this.landingAerodrome = new AerodromeDTO(route.getLandingAerodrome());
-		this.pilot = new PilotDTO(route.getPilot());
+		this.pilot = new PilotRouteDTO(route.getPilot());
 		
 		Set<Flight> fl = route.getFlights();
 		for(Flight f : fl) {
@@ -127,11 +126,11 @@ public class RouteDTO {
 		this.landingAerodrome = landingAerodrome;
 	}
 
-	public PilotDTO getPilot() {
+	public PilotRouteDTO getPilot() {
 		return pilot;
 	}
 
-	public void setPilot(PilotDTO pilot) {
+	public void setPilot(PilotRouteDTO pilot) {
 		this.pilot = pilot;
 	}
 

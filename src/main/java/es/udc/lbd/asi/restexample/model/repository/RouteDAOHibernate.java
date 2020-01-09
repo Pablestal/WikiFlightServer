@@ -18,12 +18,12 @@ public class RouteDAOHibernate extends GenericDAOHibernate implements RouteDAO{
 	
 	@Override
 	public List<Route> findPublic() {
-		return getSession().createQuery("from Route where isPublic is true").list();
+		return getSession().createQuery("from Route a where a.isPublic is true order by a.publicationDay desc").list();
 	}
 	
 	@Override
 	public List<Route> findByPilot(Pilot pilot) {
-		return getSession().createQuery("from Route where pilot= :pilot").setParameter("pilot", pilot).list();
+		return getSession().createQuery("from Route a where a.pilot=:pilot order by a.id").setParameter("pilot", pilot).list();
 	}
 	
 	@Override

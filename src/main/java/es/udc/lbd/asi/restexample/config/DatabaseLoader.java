@@ -1,14 +1,18 @@
 package es.udc.lbd.asi.restexample.config;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.slf4j.Logger;
@@ -22,13 +26,20 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 import es.udc.lbd.asi.restexample.model.domain.Aircraft;
 import es.udc.lbd.asi.restexample.model.domain.Flight;
+import es.udc.lbd.asi.restexample.model.domain.Image;
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
+import es.udc.lbd.asi.restexample.model.domain.Route;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
 import es.udc.lbd.asi.restexample.model.repository.AerodromeDAO;
 import es.udc.lbd.asi.restexample.model.repository.AircraftDAO;
+import es.udc.lbd.asi.restexample.model.repository.ImageDAO;
 import es.udc.lbd.asi.restexample.model.repository.PilotDAO;
+import es.udc.lbd.asi.restexample.model.repository.RouteDAO;
 import es.udc.lbd.asi.restexample.model.service.FlightService;
 import es.udc.lbd.asi.restexample.model.service.UserService;
+import io.jenetics.jpx.GPX;
+import io.jenetics.jpx.Track;
+import io.jenetics.jpx.TrackSegment;
 
 @Configuration
 public class DatabaseLoader {
@@ -54,6 +65,12 @@ public class DatabaseLoader {
     @Autowired 
     private PilotDAO pilotDAO;
     
+    @Autowired 
+    private RouteDAO routeDAO;
+    
+    @Autowired
+    private ImageDAO imageDAO;
+    
     
     /*
      * Para hacer que la carga de datos sea transaccional, hay que cargar el propio
@@ -62,7 +79,7 @@ public class DatabaseLoader {
      * transaciones.
      */
     @PostConstruct
-    public void init() {
+    public void init() throws IOException {
         try {
             databaseLoader.loadData();
         } catch (UserLoginExistsException e) {
@@ -71,7 +88,7 @@ public class DatabaseLoader {
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public void loadData() throws UserLoginExistsException {
+    public void loadData() throws UserLoginExistsException, IOException {
     	
     	// USERS
     	LocalDate date1 = LocalDate.of(1895, 9, 21);
@@ -156,6 +173,32 @@ public class DatabaseLoader {
         flightService.save(flight1);
         flightService.save(flight2);
         flightService.save(flight3);
+        
+        // ROUTES
+        LocalDate routeDate = LocalDate.now();
+        
+        List<Coordinate> coords = new ArrayList<>();
 
+        GPX.read("./resources/images/route1PathFile.gpx").tracks()
+	    .flatMap(Track::segments)
+	    .flatMap(TrackSegment::points)
+	    .forEach(x -> coords.add(new Coordinate(x.getLatitude().doubleValue(), x.getLongitude().doubleValue())));
+      
+        Coordinate[] coordsArray = new Coordinate[coords.size()];
+        coordsArray = coords.toArray(coordsArray);
+	    LineString routePath = new GeometryFactory(pm, 4326).createLineString(coordsArray);
+
+        Route route1 = new Route("Trial route 1", true, routeDate, "This is a trial route.", routePath,
+        		aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("delacierva"));
+        
+        routeDAO.save(route1);
+        
+        Image img1 = new Image("image1route", "First image for the very first route", p1, "http://localhost:8080/api/users/image/route1Image1.jpg",
+        		routeDAO.findById(1L));
+        Image img2 = new Image("image2route", "Second image for the very first route", p2, "http://localhost:8080/api/users/image/route1Image2.jpg",
+        		routeDAO.findById(1L));
+    
+        imageDAO.save(img1);
+        imageDAO.save(img2);
     }
 }

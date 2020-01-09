@@ -35,10 +35,11 @@ public class ImageService {
 	@Transactional(readOnly = false)
 	public ImageDTO save(Image image, Long id) {
 			Route route = routeDAO.findById(id);
-			Image bdImage = new Image(image.getName(), image.getDescription(), image.getPosition(), image.getPath(), 
+			String path = "http://localhost:8080/api/users/image/route"+ id +"Image" + image.getPath() + ".jpg";
+			
+			Image bdImage = new Image(image.getName(), image.getDescription(), image.getPosition(), path, 
 					route);
 			imageDAO.save(bdImage);		
-		
 		return new ImageDTO(bdImage);
 	}
 	

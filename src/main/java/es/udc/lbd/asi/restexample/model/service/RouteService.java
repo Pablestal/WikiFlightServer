@@ -53,7 +53,6 @@ public class RouteService {
         try {
             Files.createDirectories(this.location);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -79,8 +78,7 @@ public class RouteService {
 	public RouteDTO save(Route route) {
 		
 		Route bdRoute = new Route(route.getName(), route.getIsPublic(), LocalDate.now(), route.getDescription(),
-				route.getTakeoffAerodrome(), route.getLandingAerodrome(), route.getPilot(), 
-				 route.getImages());
+				route.getTakeoffAerodrome(), route.getLandingAerodrome(), route.getPilot());
 		routeDAO.save(bdRoute);
 		return new RouteDTO(bdRoute);
 	}
@@ -92,13 +90,9 @@ public class RouteService {
 		bdRoute.setIsPublic(route.getIsPublic());
 		bdRoute.setPublicationDay(route.getPublicationDay());
 		bdRoute.setDescription(route.getDescription());
-		bdRoute.setPath(route.getPath());
 		bdRoute.setTakeoffAerodrome(route.getTakeoffAerodrome());
 		bdRoute.setLandingAerodrome(route.getLandingAerodrome());
 		bdRoute.setPilot(route.getPilot());
-		bdRoute.setFlights(route.getFlights());
-		bdRoute.setComments(route.getComments());
-		bdRoute.setImages(route.getImages());
 		
 		routeDAO.save(bdRoute);
 		return new RouteDTO(bdRoute);
@@ -109,6 +103,7 @@ public class RouteService {
 		routeDAO.deleteById(id);
 	}
 	
+	@Transactional(readOnly = false)
 	public void parsePathFile(MultipartFile file, Long id) throws IOException {
 		
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
@@ -127,8 +122,10 @@ public class RouteService {
         PrecisionModel pm = new PrecisionModel();
 	    LineString routePath = new GeometryFactory(pm, 4326).createLineString(coordsArray);
 	    
-	    routeDAO.findById(id).setPath(routePath);
-	    System.out.println("ROUTE: "+ routeDAO.findById(id).toString());
+	    Route bdRoute = routeDAO.findById(id);
+	    bdRoute.setPath(routePath);
+	    	    
+	    routeDAO.save(bdRoute);
 	}
 	
 	public void store(MultipartFile file) throws Exception {

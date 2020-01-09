@@ -75,7 +75,7 @@ public class Route {
 	}
 	
 	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, 
-			Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot pilot, Set<Image> images) {
+			Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot pilot) {
 		super();
 		this.name = name;
 		this.isPublic = isPublic;
@@ -84,10 +84,22 @@ public class Route {
 		this.takeoffAerodrome = takeoffAerodrome;
 		this.landingAerodrome = landingAerodrome;
 		this.pilot = pilot;
-		this.images = images;
+	}
+	
+	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, LineString path,
+			Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot pilot) {
+		super();
+		this.name = name;
+		this.isPublic = isPublic;
+		this.publicationDay = publicationDay;
+		this.description = description;
+		this.path = path;
+		this.takeoffAerodrome = takeoffAerodrome;
+		this.landingAerodrome = landingAerodrome;
+		this.pilot = pilot;
 	}
 
-	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, 
+	public Route(String name, Boolean isPublic, LocalDate publicationDay, String description, LineString path,
 			Aerodrome takeoffAerodrome, Aerodrome landingAerodrome, Pilot pilot, Set<Flight> flights,
 			Set<Comment> comments, Set<Image> images) {
 		super();
@@ -95,7 +107,7 @@ public class Route {
 		this.isPublic = isPublic;
 		this.publicationDay = publicationDay;
 		this.description = description;
-//		this.path = path;
+		this.path = path;
 		this.takeoffAerodrome = takeoffAerodrome;
 		this.landingAerodrome = landingAerodrome;
 		this.pilot = pilot;

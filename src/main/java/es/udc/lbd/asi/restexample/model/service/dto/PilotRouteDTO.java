@@ -5,10 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
-import es.udc.lbd.asi.restexample.model.domain.Route;
 
 
-public class PilotDTO {
+public class PilotRouteDTO {
 	private Long id;
     private String login;
     private String password;
@@ -23,13 +22,11 @@ public class PilotDTO {
     private LocalDate regisDate;
     private Set<PilotFollDTO> followers = new HashSet<>();
     private Set<PilotFollDTO> following = new HashSet<>();
-    private Set<RouteDTO> createdRoutes = new HashSet<>();
-    private Set<RouteDTO> favRoutes = new HashSet<>();
 
-    public PilotDTO() {
+    public PilotRouteDTO() {
     }
 
-	public PilotDTO(Pilot pilot) {
+	public PilotRouteDTO(Pilot pilot) {
 		this.id = pilot.getId();
 		this.login = pilot.getLogin();
 		this.authority = pilot.getAuthority().name();
@@ -52,15 +49,6 @@ public class PilotDTO {
 			this.following.add(new PilotFollDTO(pt));
 		}
 
-		Set<Route> cre = pilot.getCreatedRoutes();
-		for(Route rtc : cre) {
-			this.createdRoutes.add(new RouteDTO(rtc));
-		}
-		
-		Set<Route> fav = pilot.getFavRoutes();
-		for(Route rtf : fav) {
-			this.favRoutes.add(new RouteDTO(rtf));
-		}
 	}
 
 	public Long getId() {
@@ -175,20 +163,5 @@ public class PilotDTO {
 		this.following = following;
 	}
 
-	public Set<RouteDTO> getCreatedRoutes() {
-		return createdRoutes;
-	}
-
-	public void setCreatedRoutes(Set<RouteDTO> createdRoutes) {
-		this.createdRoutes = createdRoutes;
-	}
-
-	public Set<RouteDTO> getFavRoutes() {
-		return favRoutes;
-	}
-
-	public void setFavRoutes(Set<RouteDTO> favRoutes) {
-		this.favRoutes = favRoutes;
-	}
   
 }
