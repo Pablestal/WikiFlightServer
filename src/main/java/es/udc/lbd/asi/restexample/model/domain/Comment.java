@@ -1,6 +1,6 @@
 package es.udc.lbd.asi.restexample.model.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +25,8 @@ public class Comment {
 	@Column
 	private String description;
 	
-	@NotEmpty
 	@Column
-	private LocalDateTime date;
+	private LocalDate date;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY) 
@@ -40,7 +39,7 @@ public class Comment {
 	public Comment() {
 	}
 
-	public Comment(String description, LocalDateTime date, Route route, Pilot pilot) {
+	public Comment(String description, LocalDate date, Route route, Pilot pilot) {
 		super();
 		this.description = description;
 		this.date = date;
@@ -64,11 +63,11 @@ public class Comment {
 		this.description = description;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

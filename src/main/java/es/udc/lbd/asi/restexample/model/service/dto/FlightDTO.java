@@ -46,9 +46,9 @@ public class FlightDTO {
 	/// Associated aerodromes, pilot, aircraft and route ///
 	private AerodromeDTO takeoffAerodrome;
 	private AerodromeDTO landingAerodrome;
-	private PilotDTO picUser;
+	private PilotRouteDTO picUser;
 	private AircraftDTO aircraft;
-	private RouteDTO route;
+	private RouteFlightDTO route;
 	
 	public FlightDTO() {
 		
@@ -80,8 +80,8 @@ public class FlightDTO {
 		this.takeoffAerodrome = new AerodromeDTO(flight.getTakeoffAerodrome());
 		this.landingAerodrome = new AerodromeDTO(flight.getLandingAerodrome());
 		this.aircraft = new AircraftDTO(flight.getAircraft());
-		this.picUser = new PilotDTO(flight.getPicUser());
-		if (flight.getRoute() != null) this.route = new RouteDTO(flight.getRoute());
+		this.picUser = new PilotRouteDTO(flight.getPicUser());
+		if (flight.getRoute() != null) this.route = new RouteFlightDTO(flight.getRoute());
 	}
 
 	public Long getId() {
@@ -268,11 +268,11 @@ public class FlightDTO {
 		this.landingAerodrome = landingAerodrome;
 	}
 
-	public PilotDTO getPicUser() {
+	public PilotRouteDTO getPicUser() {
 		return picUser;
 	}
 
-	public void setPicUser(PilotDTO picUser) {
+	public void setPicUser(PilotRouteDTO picUser) {
 		this.picUser = picUser;
 	}
 
@@ -284,11 +284,11 @@ public class FlightDTO {
 		this.aircraft = aircraft;
 	}
 	
-	public RouteDTO getRoute() {
+	public RouteFlightDTO getRoute() {
 		return route;
 	}
 
-	public void setRoute(RouteDTO route) {
+	public void setRoute(RouteFlightDTO route) {
 		this.route = route;
 	}
 	

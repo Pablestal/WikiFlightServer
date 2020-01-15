@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -65,10 +66,10 @@ public class Route {
 	@OneToMany(mappedBy="route", fetch = FetchType.LAZY)
 	private Set<Flight> flights = new HashSet<>();
 	
-	@OneToMany(mappedBy="route", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="route", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Comment> comments = new HashSet<>();
 	
-	@OneToMany(mappedBy="route", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="route", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private Set<Image> images = new HashSet<>();
 	
 	public Route() {

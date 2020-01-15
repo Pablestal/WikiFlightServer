@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.lbd.asi.restexample.model.domain.Aerodrome;
 import es.udc.lbd.asi.restexample.model.domain.Aircraft;
+import es.udc.lbd.asi.restexample.model.domain.Comment;
 import es.udc.lbd.asi.restexample.model.domain.Flight;
 import es.udc.lbd.asi.restexample.model.domain.Image;
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
@@ -32,6 +33,7 @@ import es.udc.lbd.asi.restexample.model.domain.Route;
 import es.udc.lbd.asi.restexample.model.exception.UserLoginExistsException;
 import es.udc.lbd.asi.restexample.model.repository.AerodromeDAO;
 import es.udc.lbd.asi.restexample.model.repository.AircraftDAO;
+import es.udc.lbd.asi.restexample.model.repository.CommentDAO;
 import es.udc.lbd.asi.restexample.model.repository.ImageDAO;
 import es.udc.lbd.asi.restexample.model.repository.PilotDAO;
 import es.udc.lbd.asi.restexample.model.repository.RouteDAO;
@@ -71,6 +73,8 @@ public class DatabaseLoader {
     @Autowired
     private ImageDAO imageDAO;
     
+    @Autowired
+    private CommentDAO commentDAO;
     
     /*
      * Para hacer que la carga de datos sea transaccional, hay que cargar el propio
@@ -143,6 +147,63 @@ public class DatabaseLoader {
         Aerodrome aerodrome4 = new Aerodrome("MAD", "LEMD", "Madrid-Barajas", "España", "Madrid", 2000.0, p4);
         aerodromeDAO.save(aerodrome4);
 
+        
+     // ROUTES
+        LocalDate routeDate = LocalDate.now();
+        
+        List<Coordinate> coords = new ArrayList<>();
+
+        GPX.read("./resources/images/route1PathFile.gpx").tracks()
+	    .flatMap(Track::segments)
+	    .flatMap(TrackSegment::points)
+	    .forEach(x -> coords.add(new Coordinate(x.getLatitude().doubleValue(), x.getLongitude().doubleValue())));
+      
+        Coordinate[] coordsArray = new Coordinate[coords.size()];
+        coordsArray = coords.toArray(coordsArray);
+	    LineString routePath = new GeometryFactory(pm, 4326).createLineString(coordsArray);
+
+        Route route1 = new Route("Route of the snowy mountains", true, routeDate, 
+        		"This is the first route I upload and it is from a flight from Santiago to Barcelona made this last summer.",
+        		routePath, aerodromeDAO.findById(2L), aerodromeDAO.findById(3L), 
+        		pilotDAO.findByLogin("delacierva"));
+        
+        routeDAO.save(route1);
+        
+        Comment cmnt1 = new Comment("Nice route, I wish one day I will be there.", LocalDate.now(), routeDAO.findById(1L), 
+        		pilotDAO.findByLogin("orville"));
+        
+        commentDAO.save(cmnt1);
+        
+        Point imgP1 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(42.99003839253555, -6.357787884771825));
+        Point imgP2 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(43.05287113266024, -5.608520172536373));
+        Point imgP3 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(42.11987167346775, -0.4062194656580687));
+        Point imgP4 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(41.64656262791085, 1.1425781250000002));
+        Point imgP5 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(41.5525148446006, 1.630233773030341));
+        Point imgP6 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(41.57917236133973, 1.47216796875));
+
+        
+        Image img1 = new Image("Picos de Europa", "Beautifull snowed mountains.", imgP1, "http://localhost:8080/api/users/image/route1Image1.jpg",
+        		routeDAO.findById(1L));
+        Image img2 = new Image("Mountains", "Snow in mountains.", imgP2, "http://localhost:8080/api/users/image/route1Image2.jpg",
+        		routeDAO.findById(1L));
+        Image img3 = new Image("Huesca", "City of Huesca.", imgP3, "http://localhost:8080/api/users/image/route1Image2.jpg",
+        		routeDAO.findById(1L));
+        Image img4 = new Image("Tárrega", "City of Tárrega, a few minutes after Huesca.", imgP4, "http://localhost:8080/api/users/image/route1Image2.jpg",
+        		routeDAO.findById(1L));
+        Image img5 = new Image("Igualada", "City of Igualada, almost there.", imgP5, "http://localhost:8080/api/users/image/route1Image2.jpg",
+        		routeDAO.findById(1L));
+        Image img6 = new Image("Pirineos", "Pirineos on the horizont.", imgP6, "http://localhost:8080/api/users/image/route1Image2.jpg",
+        		routeDAO.findById(1L));
+        
+        
+        imageDAO.save(img1);
+        imageDAO.save(img2);
+        imageDAO.save(img3);
+        imageDAO.save(img4);
+        imageDAO.save(img5);
+        imageDAO.save(img6);
+        
+        
         //FLIGHTS
         LocalDate dep_arrD = LocalDate.of(2019, 10, 22);
         LocalTime depT = LocalTime.of(12, 00);
@@ -163,8 +224,8 @@ public class DatabaseLoader {
         		aircraftDAO.findById(1L), null);
         
         Flight flight2 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
-        		"De Coruña a Santiago", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("delacierva"),
-        		aircraftDAO.findById(2L), null);
+        		"De Santiago a Barcelona", "AA123", aerodromeDAO.findById(2L), aerodromeDAO.findById(3L), pilotDAO.findByLogin("delacierva"),
+        		aircraftDAO.findById(2L), routeDAO.findById(1L));
         
         Flight flight3 = new Flight(dep_arrD, depT, dep_arrD, arrT, total, set, met, mpt, 1, 0, 1, 0, night, ifr, pic, coop, dual, instr, 
         		"De Coruña a Barcelona", "AA123", aerodromeDAO.findById(1L), aerodromeDAO.findById(3L), pilotDAO.findByLogin("delacierva"),
@@ -174,31 +235,6 @@ public class DatabaseLoader {
         flightService.save(flight2);
         flightService.save(flight3);
         
-        // ROUTES
-        LocalDate routeDate = LocalDate.now();
         
-        List<Coordinate> coords = new ArrayList<>();
-
-        GPX.read("./resources/images/route1PathFile.gpx").tracks()
-	    .flatMap(Track::segments)
-	    .flatMap(TrackSegment::points)
-	    .forEach(x -> coords.add(new Coordinate(x.getLatitude().doubleValue(), x.getLongitude().doubleValue())));
-      
-        Coordinate[] coordsArray = new Coordinate[coords.size()];
-        coordsArray = coords.toArray(coordsArray);
-	    LineString routePath = new GeometryFactory(pm, 4326).createLineString(coordsArray);
-
-        Route route1 = new Route("Trial route 1", true, routeDate, "This is a trial route.", routePath,
-        		aerodromeDAO.findById(1L), aerodromeDAO.findById(2L), pilotDAO.findByLogin("delacierva"));
-        
-        routeDAO.save(route1);
-        
-        Image img1 = new Image("image1route", "First image for the very first route", p1, "http://localhost:8080/api/users/image/route1Image1.jpg",
-        		routeDAO.findById(1L));
-        Image img2 = new Image("image2route", "Second image for the very first route", p2, "http://localhost:8080/api/users/image/route1Image2.jpg",
-        		routeDAO.findById(1L));
-    
-        imageDAO.save(img1);
-        imageDAO.save(img2);
     }
 }

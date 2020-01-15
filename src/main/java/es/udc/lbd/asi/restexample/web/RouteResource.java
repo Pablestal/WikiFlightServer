@@ -1,11 +1,17 @@
 package es.udc.lbd.asi.restexample.web;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -17,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +55,15 @@ public class RouteResource {
 		return routeService.findById(id);
 	}
 	
+	@RequestMapping(value = "/downloadGPX/{id}", method = RequestMethod.GET, produces = "application/gpx")
+	public @ResponseBody Resource downloadC(@PathVariable Long id, HttpServletResponse response) throws FileNotFoundException {
+	    File file = new File("./resources/images/route"+id+"pathFile.gpx");
+	    response.setContentType("application/gpx");
+	    response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+	    response.setHeader("Content-Length", String.valueOf(file.length()));
+	    return new FileSystemResource(file);
+	}
+
 	@PostMapping
 	public RouteDTO save(@RequestBody @Valid Route route, Errors errors) throws RequestBodyNotValidException {
 		errorHandler(errors);		

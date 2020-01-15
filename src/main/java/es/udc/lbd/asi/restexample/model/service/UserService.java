@@ -165,6 +165,7 @@ public class UserService {
     	bdPilot.setCity(pilot.getCity());
     	bdPilot.setBirthDate(pilot.getBirthDate());
     	bdPilot.setFollowers(pilot.getFollowers());
+    	bdPilot.setFavRoutes(pilot.getFavRoutes());
     	
     	if (pilot.getPassword() != null) {
     	String encryptedPassword = passwordEncoder.encode(pilot.getPassword());

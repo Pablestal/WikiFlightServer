@@ -1,5 +1,6 @@
 package es.udc.lbd.asi.restexample.model.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class CommentService {
 	
 	@Transactional(readOnly = false)
 	public CommentDTO save(Comment comment) {
-		Comment bdComment = new Comment(comment.getDescription(), comment.getDate(), comment.getRoute(), comment.getPilot());
+		Comment bdComment = new Comment(comment.getDescription(), LocalDate.now(), comment.getRoute(), comment.getPilot());
 		
 		commentDAO.save(bdComment);
 		return new CommentDTO(bdComment);

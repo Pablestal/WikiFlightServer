@@ -1,6 +1,6 @@
 package es.udc.lbd.asi.restexample.model.service.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import es.udc.lbd.asi.restexample.model.domain.Comment;
 
@@ -10,15 +10,14 @@ public class CommentDTO {
 
     private Long id;
 	private String description;
-	private LocalDateTime date;
-	private RouteDTO route;
-	private PilotDTO pilot;
+	private LocalDate date;
+	private PilotRouteDTO pilot;
 	
 	public CommentDTO(Comment comment) {
 		this.id = comment.getId();
 		this.description = comment.getDescription();
 		this.date = comment.getDate();
-		this.pilot = new PilotDTO(comment.getPilot());
+		this.pilot = new PilotRouteDTO(comment.getPilot());
 	}
 
 	public Long getId() {
@@ -37,27 +36,19 @@ public class CommentDTO {
 		this.description = description;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
-	public RouteDTO getRoute() {
-		return route;
-	}
-
-	public void setRoute(RouteDTO route) {
-		this.route = route;
-	}
-
-	public PilotDTO getPilot() {
+	public PilotRouteDTO getPilot() {
 		return pilot;
 	}
 
-	public void setPilot(PilotDTO pilot) {
+	public void setPilot(PilotRouteDTO pilot) {
 		this.pilot = pilot;
 	}
 	
