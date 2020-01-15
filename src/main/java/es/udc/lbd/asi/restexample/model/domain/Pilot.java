@@ -54,8 +54,7 @@ public class Pilot extends User {
     @JoinTable(
 			name = "Followers",
 			joinColumns = {@JoinColumn(name = "follower_id")},
-			inverseJoinColumns = {@JoinColumn (name = "followed_id")}
-			)
+			inverseJoinColumns = {@JoinColumn (name = "followed_id")})
     private Set<Pilot> followers = new HashSet<>();
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
@@ -64,7 +63,11 @@ public class Pilot extends User {
     @OneToMany(mappedBy="pilot", fetch = FetchType.LAZY)
     private Set<Route> createdRoutes = new HashSet<>();
     
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+			name = "Favourites",
+			joinColumns = {@JoinColumn(name = "route_id")},
+			inverseJoinColumns = {@JoinColumn (name = "pilot_id")})
     private Set<Route> favRoutes = new HashSet<>();
  
     public Pilot () {

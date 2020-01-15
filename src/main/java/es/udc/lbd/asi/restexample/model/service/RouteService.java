@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -23,8 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.udc.lbd.asi.restexample.model.domain.Flight;
 import es.udc.lbd.asi.restexample.model.domain.Pilot;
 import es.udc.lbd.asi.restexample.model.domain.Route;
+import es.udc.lbd.asi.restexample.model.repository.FlightDAO;
 import es.udc.lbd.asi.restexample.model.repository.PilotDAO;
 import es.udc.lbd.asi.restexample.model.repository.RouteDAO;
 import es.udc.lbd.asi.restexample.model.service.dto.RouteDTO;
@@ -41,6 +44,9 @@ public class RouteService {
 	
 	@Autowired
 	private PilotDAO pilotDAO;
+	
+	@Autowired
+	private FlightDAO flightDAO;
 	
 	@Autowired
 	private es.udc.lbd.asi.restexample.config.Properties properties;
@@ -100,6 +106,12 @@ public class RouteService {
 	
 	@Transactional(readOnly = false)
 	public void deleteById(Long id) {
+		Set<Flight> flights = routeDAO.findById(id).getFlights();
+		flights.forEach((flight) -> {
+			flight.setRoute(null);
+			flightDAO.save(flight);
+		});
+		
 		routeDAO.deleteById(id);
 	}
 	
