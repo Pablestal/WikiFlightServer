@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.udc.lbd.asi.restexample.model.domain.Flight;
@@ -34,8 +33,8 @@ public class FlightResource {
 		return flightService.findByPilot(login);
 	}
 	
-	@GetMapping
-	public FlightDTO findById(@RequestParam Long id) {
+	@GetMapping("/details/{id}")
+	public FlightDTO findById(@PathVariable Long id) {
 		return flightService.findById(id);
 	}
 	
