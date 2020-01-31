@@ -12,14 +12,6 @@
     <cmt></cmt>
     <desc></desc>
     <trkseg>
-      <trkpt lat="42.880524" lon="-8.545644">
-        <ele>271.274</ele>
-        <time>2010-08-07T18:39:15Z</time>
-      </trkpt>
-      <trkpt lat="42.880408" lon="-8.545727">
-        <ele>315.456</ele>
-        <time>2010-08-07T19:03:16Z</time>
-      </trkpt>
       <trkpt lat="42.895868" lon="-8.418037">
         <ele>322.221</ele>
         <time>2010-08-09T15:45:05Z</time>

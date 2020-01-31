@@ -140,6 +140,7 @@ public class DatabaseLoader {
         Point p5 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(36.675,  -4.499167));
         Point p6 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(39.489444,  -0.481667));
         Point p7 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(38.282222,  -0.558056));
+        Point p8 = new GeometryFactory(pm, 4326).createPoint(new Coordinate(38.872858,  1.373117));
 
         Aerodrome aerodrome1 = new Aerodrome("LCG", "LECO", "Alvedro", "España", "A Coruña", 328.0, p1);
         aerodromeDAO.save(aerodrome1);
@@ -155,6 +156,8 @@ public class DatabaseLoader {
         aerodromeDAO.save(aerodrome6);
         Aerodrome aerodrome7 = new Aerodrome("ALC", "LEAL", "Alicante-Elche", "España", "Alicante", 141.0, p7);
         aerodromeDAO.save(aerodrome7);
+        Aerodrome aerodrome8 = new Aerodrome("IBZ", "LEIB", "Ibiza", "España", "Ibiza", 23.0, p8);
+        aerodromeDAO.save(aerodrome8);
         
      // ROUTES
         ///////////////// ROUTE 1
