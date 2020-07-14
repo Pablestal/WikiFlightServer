@@ -1,14 +1,13 @@
-# rest-example
+# WikiFlightServer
 
-Servicio REST de ejemplo implementado con Spring.
+REST service implemented with Spring.
 
-## Configuración
+## Configuration
 
-* Crear una base de datos en PostgreSQL
-* Configurar el fichero `src/main/resources/application.yml` con los datos de la conexión a la base de datos
+* Create PostgreSQL database with POSTGIS extension
+* Configure file `src/main/resources/application.yml` with database information
 
-## Ejecución
+## Execution
 
 ```bash
 mvn spring-boot:run
-```
