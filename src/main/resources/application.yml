@@ -1,9 +1,9 @@
 spring:
     datasource:
         dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
-        url: jdbc:postgresql://localhost:5432/tfgdb
-        username: tfgdb
-        password: tfgdb
+        url: jdbc:postgresql://localhost:5432/wikiflight
+        username: postgres
+        password: postgres
     jpa:
         properties:
             hibernate:
